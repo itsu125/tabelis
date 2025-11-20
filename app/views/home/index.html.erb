@@ -1,0 +1,225 @@
+<!-- Tailwind CDN/Configスクリプトの導入 (カスタムカラーの適用) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    // TabelisのカスタムカラーパレットをTailwindに設定
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    't-primary': '#f0a256',       // ウォームオレンジ (Primary Accent)
+                    't-secondary': '#ffc48d',     // ソフトピーチ (Secondary Button)
+                    't-dark': '#442e18',          // ダークブラウン (Text/Strong)
+                    't-light-bg': '#fffbe7',      // アイボリー/クリーム (Body Background)
+                    't-light-header': '#fff8e1',  // 明るいヘッダー (Hero Section)
+                    't-shadow': '#d8763a',        // ボタンシャドウ
+                    't-text-mid': '#795548',      // 暗めのブラウン (Catch Copy)
+                    't-border': '#e7e0d3',        // ウォームなボーダー色
+                },
+            }
+        }
+    }
+</script>
+
+<style>
+    /* メッセージボックスのCSSは、fixed配置と中央寄せのため */
+    #message-box {
+        position: fixed;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms;
+        z-index: 50;
+    }
+</style>
+
+<!-- メインコンテナ (モバイル画面を想定し、最大幅を制限) -->
+<!-- bodyの背景色 (bg-t-light-bg) は、layouts/application.html.erbまたはapplication.tailwind.cssで設定することを想定 -->
+<div id="app" class="max-w-md w-full min-h-screen mx-auto bg-white shadow-xl border-x border-t-border box-border text-t-dark">
+    
+    <!-- A. トップヒーローセクション -->
+    <!-- bg-t-light-header は tailwind.config.js の設定を使用 -->
+    <div class="py-12 px-6 text-center bg-t-light-header border-b-4 border-t-primary">
+        <!-- 1. ロゴとキャッチコピー -->
+        <!-- text-t-primary は tailwind.config.js の設定を使用 -->
+        <h1 class="text-6xl font-extrabold tracking-tight text-t-primary mb-2 drop-shadow-md">
+            <span class="text-7xl">🐿️</span> Tabelis
+        </h1>
+        <!-- text-t-text-mid は tailwind.config.js の設定を使用 -->
+        <p class="text-lg text-t-text-mid font-medium mb-8">
+            「いつか行きたい」を、あなただけのリストに。
+        </p>
+
+        <!-- 2. 新規登録・ログインボタン -->
+        <div class="space-y-4 mt-12 mb-12 px-4">
+            <!-- 新規登録ボタン (Primary) -->
+            <!-- bg-t-primary は tailwind.config.js の設定を使用 -->
+            <button onclick="showMessage('新規登録画面へ遷移 (未実装)')" 
+                    class="w-full py-4 text-lg font-bold text-white rounded-xl transition ease-in-out duration-200 
+                           bg-t-primary shadow-[0_4px_0_0_#d8763a] active:shadow-[0_2px_0_0_#d8763a] active:translate-y-0.5">
+                新規登録
+            </button>
+            <!-- ログインボタン (Secondary) -->
+            <!-- bg-t-secondary, text-t-dark は tailwind.config.js の設定を使用 -->
+            <button onclick="showMessage('ログイン画面へ遷移 (未実装)')" 
+                    class="w-full py-4 text-lg font-bold rounded-xl transition ease-in-out duration-200 
+                           bg-t-secondary text-t-dark shadow-[0_4px_0_0_#e09f58] active:shadow-[0_2px_0_0_#e09f58] active:translate-y-0.5">
+                ログイン
+            </button>
+        </div>
+    </div>
+
+    <main class="p-4">
+        <!-- 3. デモ一覧表示 -->
+        <!-- text-t-text-mid, border-t-border は tailwind.config.js の設定を使用 -->
+        <h2 class="text-2xl font-bold text-t-text-mid mb-4 text-center border-b border-dashed border-t-border pb-2">
+            👀 デモリストを見る
+        </h2>
+
+        <!-- F. フィルタリング (デモ用タグ) -->
+        <div class="flex space-x-2 overflow-x-auto pb-3 mb-4 touch-pan-x">
+            <!-- タグの幅を固定し、スクロール可能にする -->
+            <!-- bg-t-primary は tailwind.config.js の設定を使用 -->
+            <span class="flex-shrink-0 px-3 py-1 text-xs font-medium text-white bg-t-primary shadow-sm rounded-full cursor-pointer whitespace-nowrap">
+                すべて
+            </span>
+            <span class="flex-shrink-0 px-3 py-1 text-xs font-medium text-amber-900 bg-yellow-100 border border-yellow-400 rounded-full cursor-pointer whitespace-nowrap">
+                #カフェ
+            </span>
+            <span class="flex-shrink-0 px-3 py-1 text-xs font-medium text-orange-700 bg-orange-100 border border-orange-400 rounded-full cursor-pointer whitespace-nowrap">
+                #ランチ
+            </span>
+            <!-- text-t-dark は tailwind.config.js の設定を使用 -->
+            <span class="flex-shrink-0 px-3 py-1 text-xs font-medium text-t-dark bg-stone-200 rounded-full cursor-pointer whitespace-nowrap">
+                #ディナー
+            </span>
+            <span class="flex-shrink-0 px-3 py-1 text-xs font-medium text-pink-800 bg-pink-100 border border-pink-300 rounded-full cursor-pointer whitespace-nowrap">
+                #スイーツ
+            </span>
+        </div>
+        
+        <!-- E. コンテンツエリア (デモカードリスト) -->
+        <div class="space-y-4">
+            <!-- リスト表示 (カード形式) -->
+            <div id="list-view" class="space-y-4">
+                
+                <!-- お店カード 1 (ダミーデータ) -->
+                <!-- bg-t-light-header, border-t-border は tailwind.config.js の設定を使用 -->
+                <div onclick="showMessage('お店の詳細画面へ遷移 (デモ)')" class="bg-t-light-header border border-t-border transition duration-300 ease-in-out hover:shadow-xl rounded-xl cursor-pointer shadow-lg overflow-hidden">
+                    <div class="flex w-full">
+                        <!-- 画像エリア -->
+                        <div class="flex-shrink-0 w-2/5 h-28 bg-cover bg-center border-r border-t-border" style="background-image: url('https://placehold.co/150x112/f0a256/442e18?text=Cafe');">
+                        </div>
+                        <div class="w-3/5 p-3 flex flex-col justify-between">
+                            <div>
+                                <!-- text-t-dark は tailwind.config.js の設定を使用 -->
+                                <h3 class="text-lg font-bold text-t-dark mb-1">
+                                    木漏れ日ベーカリー
+                                </h3>
+                                <div class="flex items-center space-x-1 mb-2">
+                                    <span class="tag-base px-2 py-0.5 text-xs font-medium text-amber-900 bg-yellow-100 border border-yellow-400 rounded-full">#カフェ</span>
+                                    <span class="tag-base px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">東京・代々木</span>
+                                </div>
+                                <!-- text-t-text-mid は tailwind.config.js の設定を使用 -->
+                                <p class="text-sm text-t-text-mid">
+                                    評価: ⭐⭐⭐⭐
+                                </p>
+                            </div>
+                            <!-- アクション・ステータス -->
+                            <div class="flex justify-end space-x-2 mt-1">
+                                <span class="tag-base px-2 py-0.5 text-xs font-medium text-t-dark bg-stone-200 rounded-full">友達と行きたい</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- お店カード 2 (ダミーデータ) -->
+                <div onclick="showMessage('お店の詳細画面へ遷移 (デモ)')" class="bg-t-light-header border border-t-border transition duration-300 ease-in-out hover:shadow-xl rounded-xl cursor-pointer shadow-lg overflow-hidden">
+                    <div class="flex w-full">
+                        <!-- 画像エリア -->
+                        <div class="flex-shrink-0 w-2/5 h-28 bg-cover bg-center border-r border-t-border" style="background-image: url('https://placehold.co/150x112/ffc48d/442e18?text=Lunch');">
+                        </div>
+                        <div class="w-3/5 p-3 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-lg font-bold text-t-dark mb-1">
+                                    窯焼きピッツァ IL FORNO
+                                </h3>
+                                <div class="flex items-center space-x-1 mb-2">
+                                    <span class="tag-base px-2 py-0.5 text-xs font-medium text-orange-700 bg-orange-100 border border-orange-400 rounded-full">#ランチ</span>
+                                    <span class="tag-base px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">大阪・難波</span>
+                                </div>
+                                <p class="text-sm text-t-text-mid">
+                                    評価: ⭐⭐⭐⭐⭐
+                                </p>
+                            </div>
+                            <!-- アクション・ステータス -->
+                            <div class="flex justify-end space-x-2 mt-1">
+                                <!-- bg-t-primary は tailwind.config.js の設定を使用 -->
+                                <span class="tag-base px-2 py-0.5 text-xs font-medium text-white bg-t-primary rounded-full">人気店</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- お店カード 3 (ダミーデータ) -->
+                <div onclick="showMessage('お店の詳細画面へ遷移 (デモ)')" class="bg-t-light-header border border-t-border transition duration-300 ease-in-out hover:shadow-xl rounded-xl cursor-pointer shadow-lg overflow-hidden">
+                    <div class="flex w-full">
+                        <!-- 画像エリア -->
+                        <div class="flex-shrink-0 w-2/5 h-28 bg-cover bg-center border-r border-t-border" style="background-image: url('https://placehold.co/150x112/fff8e1/442e18?text=Sweets');">
+                        </div>
+                        <div class="w-3/5 p-3 flex flex-col justify-between">
+                            <div>
+                                <h3 class="text-lg font-bold text-t-dark mb-1">
+                                    隠れ家スイーツ Atelier
+                                </h3>
+                                <div class="flex items-center space-x-1 mb-2">
+                                    <span class="tag-base px-2 py-0.5 text-xs font-medium text-pink-800 bg-pink-100 border border-pink-300 rounded-full">#スイーツ</span>
+                                    <span class="tag-base px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">東京・恵比寿</span>
+                                </div>
+                                <p class="text-sm text-t-text-mid">
+                                    評価: ⭐⭐⭐
+                                </p>
+                            </div>
+                            <!-- アクション・ステータス -->
+                            <div class="flex justify-end space-x-2 mt-1">
+                                <span class="tag-base px-2 py-0.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">未整理</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+        <!-- メッセージボックス (alert()の代替) -->
+        <!-- bg-t-dark は tailwind.config.js の設定を使用 -->
+        <div id="message-box" class="bg-t-dark text-white p-3 rounded-lg shadow-2xl">
+            メッセージ
+        </div>
+
+    </main>
+</div>
+
+<script>
+    const messageBox = document.getElementById('message-box');
+    
+    // alert()の代替としてカスタムメッセージボックスを表示
+    function showMessage(message) {
+        // 現在表示中のタイマーがあればクリアする
+        clearTimeout(window.messageTimer); 
+        
+        messageBox.textContent = message;
+        
+        // opacity: 100にすることで表示される
+        messageBox.style.opacity = '1';
+        messageBox.style.pointerEvents = 'auto';
+
+        // 3秒後にメッセージを非表示にする
+        window.messageTimer = setTimeout(() => {
+            messageBox.style.opacity = '0';
+            messageBox.style.pointerEvents = 'none';
+        }, 3000);
+    }
+</script>
