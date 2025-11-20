@@ -54,6 +54,7 @@ group :development do
   gem "web-console"
   gem 'rubocop', '1.71.2', require: false
   gem 'rubocop-rails', require: false
+  gem 'foreman'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -70,3 +71,4 @@ group :test do
 end
 
 gem 'devise'
+gem "tailwindcss-rails", "~> 4.4"
