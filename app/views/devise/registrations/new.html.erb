@@ -1,0 +1,85 @@
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    // TabelisのカスタムカラーパレットをTailwindに設定
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    't-primary': '#f0a256',       // ウォームオレンジ (Primary Accent)
+                    't-secondary': '#ffc48d',     // ソフトピーチ (Secondary Button)
+                    't-dark': '#442e18',          // ダークブラウン (Text/Strong)
+                    't-light-bg': '#fffbe7',      // アイボリー/クリーム (Body Background)
+                    't-light-header': '#fff8e1',  // 明るいヘッダー (Hero Section)
+                    't-shadow': '#d8763a',        // ボタンシャドウ
+                    't-text-mid': '#795548',      // 暗めのブラウン (Catch Copy)
+                    't-border': '#e7e0d3',        // ウォームなボーダー色
+                },
+            }
+        }
+    }
+</script>
+
+<div class="max-w-md mx-auto p-6 bg-t-light-header rounded-xl shadow-2xl border border-t-border my-8 text-t-dark">
+  
+  <h2 class="text-3xl font-extrabold text-center text-t-primary mb-6">
+    <span class="text-4xl">🐿️</span> 新規アカウント登録
+  </h2>
+
+  <%= form_with(model: resource,
+                scope: resource_name,
+                url: user_registration_path(resource_name),
+                local: true) do |f| %>
+
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <%# -- Name フィールド -- %>
+    <div class="mb-4">
+      <%= f.label :name, class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.text_field :name, 
+                       class: "w-full p-3 border border-t-border rounded-lg bg-white placeholder-gray-400 focus:ring-t-primary focus:border-t-primary focus:outline-none transition duration-150",
+                       autofocus: true, 
+                       autocomplete: "name" %>
+    </div>
+
+    <%# -- Email フィールド -- %>
+    <div class="mb-4">
+      <%= f.label :email, class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.email_field :email, 
+                        class: "w-full p-3 border border-t-border rounded-lg bg-white placeholder-gray-400 focus:ring-t-primary focus:border-t-primary focus:outline-none transition duration-150",
+                        autocomplete: "email" %>
+    </div>
+
+    <%# -- Password フィールド -- %>
+    <div class="mb-4">
+      <%= f.label :password, class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <% if @minimum_password_length %>
+      <em class="text-xs text-gray-500 block mb-1">
+        (<%= @minimum_password_length %>文字以上)
+      </em>
+      <% end %>
+      <%= f.password_field :password, 
+                           class: "w-full p-3 border border-t-border rounded-lg bg-white placeholder-gray-400 focus:ring-t-primary focus:border-t-primary focus:outline-none transition duration-150",
+                           autocomplete: "new-password" %>
+    </div>
+
+    <%# -- Password Confirmation フィールド -- %>
+    <div class="mb-6">
+      <%= f.label :password_confirmation, class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.password_field :password_confirmation, 
+                           class: "w-full p-3 border border-t-border rounded-lg bg-white placeholder-gray-400 focus:ring-t-primary focus:border-t-primary focus:outline-none transition duration-150",
+                           autocomplete: "new-password" %>
+    </div>
+
+    <%# -- Submit ボタン -- %>
+    <div class="actions">
+      <%= f.submit "登録する", 
+                   class: "w-full py-4 text-lg font-bold text-white rounded-xl transition duration-200 cursor-pointer 
+                           bg-t-primary shadow-[0_4px_0_0_#d8763a] active:shadow-[0_2px_0_0_#d8763a] active:translate-y-0.5" %>
+    </div>
+  <% end %>
+
+  <%# -- 共有リンク -- %>
+  <div class="mt-6 pt-4 border-t border-t-border text-center">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>

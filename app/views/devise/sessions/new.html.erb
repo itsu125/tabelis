@@ -1,0 +1,50 @@
+<div class="max-w-md mx-auto p-6 bg-t-light-header rounded-xl shadow-2xl border border-t-border my-8 text-t-dark">
+  
+  <h2 class="text-3xl font-extrabold text-center text-t-primary mb-6">
+    <span class="text-4xl">🐿️</span> ログイン
+  </h2>
+
+  <%= form_with(model: resource,
+                scope: resource_name,
+                url: user_session_path(resource_name),
+                local: true) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <%# -- Email フィールド -- %>
+    <div class="mb-4">
+      <%= f.label :email, class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.email_field :email, 
+                        class: "w-full p-3 border border-t-border rounded-lg bg-white placeholder-gray-400 focus:ring-t-primary focus:border-t-primary focus:outline-none transition duration-150",
+                        autofocus: true, 
+                        autocomplete: "email" %>
+    </div>
+
+    <%# -- Password フィールド -- %>
+    <div class="mb-4">
+      <%= f.label :password, class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.password_field :password, 
+                           class: "w-full p-3 border border-t-border rounded-lg bg-white placeholder-gray-400 focus:ring-t-primary focus:border-t-primary focus:outline-none transition duration-150",
+                           autocomplete: "current-password" %>
+    </div>
+
+    <%# -- Remember Me (オプション) -- %>
+    <% if devise_mapping.rememberable? %>
+      <div class="mb-6 flex items-center">
+        <%= f.check_box :remember_me, class: "rounded border-t-border text-t-primary shadow-sm focus:border-t-primary focus:ring focus:ring-t-primary focus:ring-opacity-50 mr-2" %>
+        <%= f.label :remember_me, class: "text-sm text-t-text-mid" %>
+      </div>
+    <% end %>
+
+    <%# -- Submit ボタン -- %>
+    <div class="actions">
+      <%= f.submit "ログイン", 
+                   class: "w-full py-4 text-lg font-bold text-white rounded-xl transition duration-200 cursor-pointer 
+                           bg-t-primary shadow-[0_4px_0_0_#d8763a] active:shadow-[0_2px_0_0_#d8763a] active:translate-y-0.5" %>
+    </div>
+  <% end %>
+
+  <%# -- 共有リンク -- %>
+  <div class="mt-6 pt-4 border-t border-t-border text-center">
+    <%= render "devise/shared/links" %>
+  </div>
+</div>
