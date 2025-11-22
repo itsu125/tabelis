@@ -2,14 +2,8 @@
   <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
 
     <!-- 左側：ロゴ -->
-    <% if user_signed_in? %>
-      <%= link_to "#", class: "text-2xl font-bold text-t-primary flex items-center gap-1" do %>
-        🐿️ Tabelis
-      <% end %>
-    <% else %>
-      <%= link_to root_path, class: "text-2xl font-bold text-t-primary flex items-center gap-1" do %>
-        🐿️ Tabelis
-      <% end %>
+    <%= link_to root_path, class: "text-2xl font-bold text-t-primary flex items-center gap-1" do %>
+      🐿️ Tabelis
     <% end %>
 
     <!-- 右側 -->
@@ -22,7 +16,7 @@
         </span>
 
         <!-- 新規追加ボタン（未実装） -->
-        <%= link_to "#", class: "text-3xl text-t-primary font-bold" do %>
+        <%= link_to new_shop_path, class: "text-3xl text-t-primary font-bold" do %>
           ＋
         <% end %>
 
