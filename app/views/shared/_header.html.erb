@@ -1,0 +1,37 @@
+<header class="fixed top-0 left-0 w-full bg-t-light-header shadow-md border-b border-t-border z-50">
+  <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+
+    <!-- 左側：ロゴ -->
+    <% if user_signed_in? %>
+      <%= link_to "#", class: "text-2xl font-bold text-t-primary flex items-center gap-1" do %>
+        🐿️ Tabelis
+      <% end %>
+    <% else %>
+      <%= link_to root_path, class: "text-2xl font-bold text-t-primary flex items-center gap-1" do %>
+        🐿️ Tabelis
+      <% end %>
+    <% end %>
+
+    <!-- 右側 -->
+    <% if user_signed_in? %>
+      <div class="flex items-center gap-4">
+
+        <!-- マイページ（未実装） -->
+        <span class="font-semibold text-t-dark">
+          <%= current_user.name %>
+        </span>
+
+        <!-- 新規追加ボタン（未実装） -->
+        <%= link_to "#", class: "text-3xl text-t-primary font-bold" do %>
+          ＋
+        <% end %>
+
+        <!-- ログアウト -->
+        <%= link_to "ログアウト",
+              destroy_user_session_path,
+              method: :delete,
+              class: "text-t-dark font-medium hover:text-t-primary transition" %>
+      </div>
+    <% end %>
+  </div>
+</header>

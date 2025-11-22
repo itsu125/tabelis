@@ -12,6 +12,9 @@
   </head>
 
   <body class="bg-t-light-bg text-t-dark">
+    <% unless controller_name == "home" && action_name == "index" %>
+      <%= render "shared/header" %>
+    <% end %>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
