@@ -1,0 +1,78 @@
+<div class="max-w-md mx-auto p-6 bg-t-light-header rounded-xl shadow-2xl border border-t-border my-8 text-t-dark">
+
+  <h2 class="text-3xl font-extrabold text-center text-t-primary mb-6">
+    <span class="text-4xl">🌰</span> 新しいお店を追加
+  </h2>
+
+  <%# エラーメッセージ %>
+  <% if @shop.errors.any? %>
+    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+      <p class="font-bold">入力内容に誤りがあります</p>
+      <ul class="list-disc ml-5 mt-2">
+        <% @shop.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @shop, local: true do |f| %>
+
+    <%# 店名 %>
+    <div class="mb-4">
+      <%= f.label :name, "店名", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.text_field :name,
+            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
+    </div>
+
+    <%# URL %>
+    <div class="mb-4">
+      <%= f.label :url, "URL（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.url_field :url,
+            placeholder: "https://example.com",
+            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
+    </div>
+
+    <%# 住所 %>
+    <div class="mb-4">
+      <%= f.label :address, "住所（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.text_field :address,
+            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
+    </div>
+
+    <%# メモ %>
+    <div class="mb-4">
+      <%= f.label :memo, "メモ（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
+      <%= f.text_area :memo,
+            rows: 4,
+            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
+    </div>
+
+    <%# ステータス %>
+    <div class="mb-6">
+      <%= f.label :status, "リスト", class: "block text-sm font-medium mb-2 text-t-text-mid" %>
+
+      <div class="space-y-2">
+        <label class="flex items-center space-x-2">
+          <%= f.radio_button :status, "want", class: "text-t-primary" %>
+          <span>行きたい</span>
+        </label>
+
+        <label class="flex items-center space-x-2">
+          <%= f.radio_button :status, "went", class: "text-t-primary" %>
+          <span>行った</span>
+        </label>
+      </div>
+    </div>
+
+    <%# 送信ボタン %>
+    <div class="mt-8">
+      <%= f.submit "追加する",
+          class: "w-full py-4 text-lg font-bold text-white rounded-xl 
+                 bg-t-primary shadow-[0_4px_0_0_#d8763a] active:shadow-[0_2px_0_0_#d8763a] 
+                 active:translate-y-0.5 transition cursor-pointer" %>
+    </div>
+
+  <% end %>
+
+</div>
