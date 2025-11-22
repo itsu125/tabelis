@@ -4,16 +4,12 @@
     <span class="text-4xl">🐿️</span> ログイン
   </h2>
 
+  <% flash.discard(:notice) %>
+
   <%# -- Flash メッセージ -- %>
   <% if flash[:alert] %>
     <div class="mb-4 p-4 rounded-xl border border-red-300 bg-red-50 text-red-800 text-sm font-medium shadow-sm">
       <%= flash[:alert] %>
-    </div>
-  <% end %>
-
-  <% if flash[:notice] %>
-    <div class="mb-4 p-4 rounded-xl border border-green-300 bg-green-50 text-green-800 text-sm font-medium shadow-sm">
-      <%= flash[:notice] %>
     </div>
   <% end %>
 

@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+/* ======== Tabelis カスタムカラー定義 ======== */
+@layer base {
+  :root {
+    --t-primary: #f0a256;       /* ウォームオレンジ */
+    --t-secondary: #ffc48d;     /* ソフトピーチ */
+    --t-dark: #442e18;          /* ダークブラウン */
+    --t-light-bg: #fffbe7;      /* クリーム背景 */
+    --t-light-header: #fff8e1;  /* ヘッダー背景 */
+    --t-shadow: #d8763a;        /* ボタンの影色 */
+    --t-text-mid: #795548;      /* 少し濃い茶色 */
+    --t-border: #e7e0d3;        /* 枠線用の暖色ベージュ */
+  }
+}
+
+/* ======== Tailwind にクラスとして認識させる ======== */
+@layer utilities {
+  /* 文字色 */
+  .text-t-primary   { color: var(--t-primary); }
+  .text-t-secondary { color: var(--t-secondary); }
+  .text-t-dark      { color: var(--t-dark); }
+  .text-t-text-mid  { color: var(--t-text-mid); }
+
+  /* 背景色 */
+  .bg-t-primary     { background-color: var(--t-primary); }
+  .bg-t-secondary   { background-color: var(--t-secondary); }
+  .bg-t-dark        { background-color: var(--t-dark); }
+  .bg-t-light-bg    { background-color: var(--t-light-bg); }
+  .bg-t-light-header{ background-color: var(--t-light-header); }
+
+  /* 枠線 */
+  .border-t-border  { border-color: var(--t-border); }
+}
+
+/* ======== ボタンの影（shadow） ======== */
+@layer utilities {
+  .shadow-t-primary { box-shadow: 0 4px 0 0 var(--t-shadow); }
+  .shadow-t-primary-active { box-shadow: 0 2px 0 0 var(--t-shadow); }
+}
