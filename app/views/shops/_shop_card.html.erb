@@ -16,10 +16,17 @@
         <div class="text-sm text-t-text-mid opacity-80">
           <%= shop.address.presence || "住所未登録" %>
         </div>
-        <p class="text-sm text-t-text-mid">
-          わくわく度:
-          <%= "★" * shop.rating %><%= "☆" * (5 - shop.rating) %>
-        </p>
+        <div class="text-yellow-400 text-lg font-bold flex">
+          <% 5.times do |i| %>
+            <% if shop.rating.to_i >= i + 1 %>
+              <!-- 黒星 -->
+              <span class="text-t-primary">★</span>
+            <% else %>
+              <!-- 白星 -->
+              <span class="text-gray-300">★</span>
+            <% end %>
+          <% end %>
+        </div>
       </div>
 
       <!-- ステータス (行きたい / 行った) -->

@@ -28,8 +28,29 @@
     <%# 写真・画像 %>
     <div class="mb-4">
       <%= f.label :image, "写真・画像（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
-      <%= f.file_field :image, class: "block w-full text-sm text-gray-700" %>
+      <!-- 表示されるボタン -->
+      <label class="flex items-center px-4 py-2 bg-t-secondary text-t-dark font-medium rounded-lg shadow cursor-pointer hover:bg-t-primary hover:text-white transition">
+        画像を選択
+        <!-- 実際のfile_fieldは hidden -->
+        <%= f.file_field :image, class: "hidden", id: "file_input" %>
+      </label>
+
+      <!-- 選択されたファイル名を表示 -->
+      <p id="file_name" class="text-sm text-gray-500 mt-2"></p>
     </div>
+
+    <script>
+    document.addEventListener("turbo:load", () => {
+      const fileInput = document.getElementById("file_input");
+      const fileName = document.getElementById("file_name");
+
+      if (fileInput) {
+        fileInput.addEventListener("change", () => {
+          fileName.textContent = fileInput.files[0]?.name || "";
+        });
+      }
+    });
+    </script>
 
     <%# URL %>
     <div class="mb-4">
