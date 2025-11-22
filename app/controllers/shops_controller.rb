@@ -13,7 +13,7 @@ class ShopsController < ApplicationController
   def create
     @shop = current_user.shops.new(shop_params)
     if @shop.save
-      redirect_to shops_path, notice: "リストに追加しました🌰"
+      redirect_to shops_path, notice: 'リストに追加しました🌰'
     else
       render :new, status: :unprocessable_entity
     end
