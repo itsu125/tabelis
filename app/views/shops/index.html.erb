@@ -1,0 +1,47 @@
+<div class="w-full max-w-md mx-auto px-4">
+
+  <!-- 見出し -->
+  <h2 class="text-2xl font-bold text-t-text-mid mb-4 border-b border-t-border pb-2">
+    🌰 My List
+  </h2>
+
+  <!-- 店舗が0件の場合 -->
+  <% if @shops.empty? %>
+    <div class="text-center text-t-text-mid bg-t-light-header p-6 rounded-xl border border-t-border shadow">
+      <p class="text-lg mb-3">まだお店が登録されていません</p>
+      <p class="text-sm">右上の <strong>＋</strong> ボタンから追加してみましょう！</p>
+    </div>
+
+  <% else %>
+
+    <!-- 店舗カード一覧 -->
+    <div class="space-y-4">
+      <% @shops.each do |shop| %>
+        <div class="bg-t-light-header border border-t-border rounded-xl shadow-lg overflow-hidden">
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-t-dark mb-2">
+              <%= shop.name %>
+            </h3>
+
+            <!-- ステータス表示 -->
+            <% if shop.status == "want" %>
+              <span class="px-3 py-1 text-xs font-medium bg-yellow-100 text-amber-800 border border-yellow-300 rounded-full">
+                行きたい
+              </span>
+            <% else %>
+              <span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 border border-green-300 rounded-full">
+                行った
+              </span>
+            <% end %>
+
+            <!-- メモ -->
+            <% if shop.memo.present? %>
+              <p class="text-sm text-t-text-mid mt-3"><%= shop.memo %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  <% end %>
+</div>

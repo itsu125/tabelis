@@ -29,7 +29,7 @@
         <!-- ログアウト -->
         <%= link_to "ログアウト",
               destroy_user_session_path,
-              method: :delete,
+              data: { turbo_method: :delete },
               class: "text-t-dark font-medium hover:text-t-primary transition" %>
       </div>
     <% end %>
