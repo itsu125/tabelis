@@ -12,5 +12,5 @@ Rails.application.routes.draw do
     root "home#index"
   end
 
-  resources :shops, only: [:index]
+  resources :shops, only: [:index, :new, :create]
 end
