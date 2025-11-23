@@ -1,0 +1,21 @@
+<div class="max-w-md mx-auto p-6 bg-t-light-header rounded-xl shadow-2xl border border-t-border my-8 text-t-dark">
+
+  <h2 class="text-3xl font-extrabold text-center text-t-primary mb-6">
+    <span class="text-4xl">🌰</span> ショップを編集
+  </h2>
+
+    <%# エラーメッセージ %>
+  <% if @shop.errors.any? %>
+    <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+      <p class="font-bold">入力内容に誤りがあります</p>
+      <ul class="list-disc ml-5 mt-2">
+        <% @shop.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= render "form", shop: @shop %>
+
+</div>
