@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    models:
+      shop: ショップ
+    attributes:
+      shop:
+        name: 店名
+        url: URL
+        address: 住所
+        memo: メモ
+        status: ステータス
+        image: 画像
+        rating: わくわく度
+  errors:
+    messages:
+      blank: "を入力してください"
+      invalid: "が不正です"
+      too_long: "は%{count}文字以内で入力してください"
