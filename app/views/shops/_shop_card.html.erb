@@ -1,46 +1,53 @@
 <%= link_to shop_path(shop),
             class: "block bg-t-light-header border border-t-border rounded-xl shadow hover:shadow-xl transition overflow-hidden" do %>
-  <div class="flex w-full">
 
-    <!-- 画像エリア -->
-    <div class="w-2/5 h-28 flex-shrink-0 border-r border-t-border bg-cover bg-center"
-         style="background-image: url('<%= shop.image.attached? ? url_for(shop.image) : asset_path("no_image.png") %>')">
+  <div class="w-full h-44 sm:h-56 flex flex-col">
+
+    <!-- 店名エリア（カード上部） -->
+    <div class="h-[15%] bg-[#fff3d4] flex items-center justify-center px-2">
+      <h3 class="text-base font-bold text-t-dark text-center truncate">
+        <%= shop.name %>
+      </h3>
     </div>
 
-    <!-- テキストエリア -->
-    <div class="w-3/5 p-3 flex flex-col justify-between">
-      <div>
-        <h3 class="text-lg font-bold text-t-dark mb-1">
-          <%= shop.name %>
-        </h3>
-
-        <div class="text-sm text-t-text-mid opacity-80">
-          <%= shop.address.presence || "住所未登録" %>
-        </div>
-        <div class="text-yellow-400 text-lg font-bold flex">
-          <% 5.times do |i| %>
-            <% if shop.rating.to_i >= i + 1 %>
-              <!-- 黒星 -->
-              <span class="text-t-primary">★</span>
-            <% else %>
-              <!-- 白星 -->
-              <span class="text-gray-300">★</span>
-            <% end %>
+    <!-- 左：正方形画像 / 右：情報(カード下部) -->
+    <div class="h-[85%] flex">
+    <!-- 画像エリア（左） -->
+      <div class="flex-shrink-0 w-[45%] p-2">
+        <div class="w-full aspect-square bg-white rounded-lg overflow-hidden border border-t-border">
+          <% if shop.image.attached? %>
+            <%= image_tag shop.image, class: "w-full h-full object-cover" %>
+          <% else %>
+            <%= image_tag "no_image.png", class: "w-full h-full object-cover" %>
           <% end %>
         </div>
       </div>
 
-      <!-- ステータス (行きたい / 行った) -->
-      <div class="flex justify-end mt-1">
-        <% if shop.want? %>
-          <span class="px-2 py-0.5 text-xs font-medium bg-yellow-100 border border-yellow-400 text-amber-800 rounded-full">
-            行きたい
-          </span>
-        <% else %>
-          <span class="px-2 py-0.5 text-xs font-medium bg-green-100 border border-green-400 text-green-800 rounded-full">
-            行った
-          </span>
-        <% end %>
+      <!-- テキストエリア（右） -->
+      <div class="w-[55%] flex flex-col justify-between py-2 pr-2">
+
+        <!-- わくわく度（★5段階） -->
+        <div class="text-yellow-400 text-base font-bold flex">
+          <% 5.times do |i| %>
+            <% if shop.rating.to_i >= i + 1 %>
+              <span class="text-t-primary">★</span>
+            <% else %>
+              <span class="text-gray-300">★</span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- 住所（調整予定） -->
+        <div class="text-xs text-t-text-mid opacity-80 leading-tight line-clamp-2">
+          <%= shop.address.presence || "住所未登録" %>
+        </div>
+
+        <!-- 横スクロールタグ（最下部） -->
+        <div class="flex space-x-2 overflow-x-auto pb-1">
+          <!-- 今はダミー -->
+          <span class="flex-shrink-0 px-2 py-1 bg-yellow-100 text-amber-900 border border-yellow-400 rounded-full text-xs">#カフェ</span>
+          <span class="flex-shrink-0 px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">東京・渋谷</span>
+        </div>
       </div>
     </div>
   </div>

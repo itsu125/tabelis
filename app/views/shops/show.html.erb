@@ -1,11 +1,11 @@
-<div class="max-w-md mx-auto bg-t-light-header shadow-xl rounded-xl p-6 border border-t-border text-t-dark">
+<div class="max-w-md w-full mx-auto bg-t-light-header shadow-xl rounded-xl p-6 border border-t-border text-t-dark">
 
   <!-- メイン画像 -->
-  <div class="mb-6">
+  <div class="w-full h-56 mb-6 overflow-hidden rounded-lg border border-t-border bg-t-light-header">
     <% if @shop.image.attached? %>
-      <%= image_tag @shop.image, class: "w-full h-56 object-cover rounded-lg border border-t-border" %>
+      <%= image_tag @shop.image, class: "w-full h-full object-cover" %>
     <% else %>
-      <%= image_tag "no_image.png", class: "w-full h-56 object-cover rounded-lg border border-t-border" %>
+      <%= image_tag "no_image.png", class: "w-full h-full object-cover" %>
     <% end %>
   </div>
 
