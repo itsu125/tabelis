@@ -69,18 +69,15 @@
 
     <%# わくわく度（5段階） %>
     <div class="mb-4">
-      <%= f.label :rating, "わくわく度（5段階）", class: "block mb-1 font-medium text-t-text-mid" %>
-
-      <div class="flex space-x-2">
-        <% 1.upto(5) do |i| %>
-          <label>
-            <%= f.radio_button :rating, i, class: "hidden peer" %>
-            <span class="text-3xl cursor-pointer peer-checked:text-yellow-500">
-              ★
-            </span>
-          </label>
-        <% end %>
+      <label class="block text-sm font-medium mb-1 text-t-text-mid">わくわく度（5段階）</label>
+      <div class="flex space-x-1 text-3xl cursor-pointer">
+        <span data-star="1" class="text-gray-300">★</span>
+        <span data-star="2" class="text-gray-300">★</span>
+        <span data-star="3" class="text-gray-300">★</span>
+        <span data-star="4" class="text-gray-300">★</span>
+        <span data-star="5" class="text-gray-300">★</span>
       </div>
+      <%= f.hidden_field :rating, id: "shop_rating" %>
     </div>
 
     <%# メモ %>
