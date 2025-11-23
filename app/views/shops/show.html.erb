@@ -1,0 +1,91 @@
+<div class="max-w-md mx-auto bg-t-light-header shadow-xl rounded-xl p-6 border border-t-border text-t-dark">
+
+  <!-- メイン画像 -->
+  <div class="mb-6">
+    <% if @shop.image.attached? %>
+      <%= image_tag @shop.image, class: "w-full h-56 object-cover rounded-lg border border-t-border" %>
+    <% else %>
+      <%= image_tag "no_image.png", class: "w-full h-56 object-cover rounded-lg border border-t-border" %>
+    <% end %>
+  </div>
+
+  <!-- ショップ名（中央揃え） -->
+  <h1 class="text-3xl font-extrabold text-center text-t-primary mb-4">
+    <%= @shop.name %>
+  </h1>
+
+  <!-- わくわく度 -->
+  <div class="mb-6 text-center">
+    <p class="text-base font-semibold text-t-text-mid mb-1">わくわく度</p>
+
+    <div class="flex justify-center">
+      <% 5.times do |i| %>
+        <% if i < @shop.rating.to_i %>
+          <span class="text-yellow-400 text-2xl">★</span>
+        <% else %>
+          <span class="text-gray-300 text-2xl">★</span>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- 基本情報 -->
+  <div class="space-y-4">
+
+    <div>
+      <p class="text-sm font-bold text-t-dark">住所</p>
+      <p class="text-t-text-mid"><%= @shop.address.presence || "未設定" %></p>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold text-t-dark">URL</p>
+      <% if @shop.url.present? %>
+        <a href="<%= @shop.url %>" target="_blank"
+           class="text-blue-600 underline break-all">
+          <%= @shop.url %>
+        </a>
+      <% else %>
+        <p class="text-t-text-mid">未設定</p>
+      <% end %>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold text-t-dark">メモ</p>
+      <p class="text-t-text-mid whitespace-pre-line">
+        <%= @shop.memo.presence || "未記入" %>
+      </p>
+    </div>
+
+    <div>
+      <p class="text-sm font-bold text-t-dark">登録日</p>
+      <p class="text-t-text-mid"><%= l @shop.created_at, format: :long %></p>
+    </div>
+
+  </div>
+
+  <!-- ボタン類 -->
+  <div class="mt-8 flex flex-col gap-3">
+
+    <!-- 編集 -->
+    <%= link_to "#",
+        class: "w-full py-3 rounded-lg font-bold text-center bg-t-primary text-white shadow hover:opacity-90 transition" do %>
+      編集する
+    <% end %>
+
+    <!-- 削除（濃い茶色） -->
+    <%= link_to "#",
+        method: :delete,
+        data: { confirm: "本当に削除しますか？" },
+        class: "w-full py-3 rounded-lg font-bold text-center bg-t-dark text-white shadow hover:bg-[#2f1f12] transition" do %>
+      削除する
+    <% end %>
+
+    <!-- 戻る -->
+    <%= link_to shops_path,
+        class: "w-full py-3 rounded-lg font-bold text-center bg-stone-300 text-t-dark hover:bg-stone-400 transition" do %>
+      一覧に戻る
+    <% end %>
+
+  </div>
+
+</div>
