@@ -1,7 +1,7 @@
 class ShopsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_shop, only: [:show, :edit, :update]
-  before_action :authorize_user!, only: [:show, :edit, :update]
+  before_action :set_shop, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
 
   def index
     # 自分が登録したショップ一覧
@@ -34,6 +34,11 @@ class ShopsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @shop.destroy
+    redirect_to shops_path, notice: '削除しました🍂'
   end
 
   private

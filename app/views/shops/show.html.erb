@@ -67,18 +67,17 @@
   <div class="mt-8 flex flex-col gap-3">
 
     <!-- 編集 -->
-    <%= link_to edit_shop_path,
+    <%= link_to edit_shop_path(@shop),
         class: "w-full py-3 rounded-lg font-bold text-center bg-t-primary text-white shadow hover:opacity-90 transition" do %>
       編集する
     <% end %>
 
     <!-- 削除（濃い茶色） -->
-    <%= link_to "#",
+    <%= button_to "削除する",
+        shop_path(@shop),
         method: :delete,
         data: { confirm: "本当に削除しますか？" },
-        class: "w-full py-3 rounded-lg font-bold text-center bg-t-dark text-white shadow hover:bg-[#2f1f12] transition" do %>
-      削除する
-    <% end %>
+        class: "w-full py-3 rounded-lg font-bold text-center bg-t-dark text-white shadow hover:bg-[#2f1f12] transition" %>
 
     <!-- 戻る -->
     <%= link_to shops_path,
