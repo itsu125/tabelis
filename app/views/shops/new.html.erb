@@ -1,7 +1,7 @@
 <div class="max-w-md mx-auto p-6 bg-t-light-header rounded-xl shadow-2xl border border-t-border my-8 text-t-dark">
 
   <h2 class="text-3xl font-extrabold text-center text-t-primary mb-6">
-    <span class="text-4xl">🌰</span> 新しいお店を追加
+    <span class="text-4xl">🌰</span> 新しいショップを追加
   </h2>
 
   <%# エラーメッセージ %>
@@ -16,99 +16,6 @@
     </div>
   <% end %>
 
-  <%= form_with model: @shop, local: true do |f| %>
-
-    <%# 店名 %>
-    <div class="mb-4">
-      <%= f.label :name, "店名", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
-      <%= f.text_field :name,
-            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
-    </div>
-
-    <%# 写真・画像 %>
-    <div class="mb-4">
-      <%= f.label :image, "写真・画像（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
-      <!-- 表示されるボタン -->
-      <label class="flex items-center px-4 py-2 bg-t-secondary text-t-dark font-medium rounded-lg shadow cursor-pointer hover:bg-t-primary hover:text-white transition">
-        画像を選択
-        <!-- 実際のfile_fieldは hidden -->
-        <%= f.file_field :image, class: "hidden", id: "file_input" %>
-      </label>
-
-      <!-- 選択されたファイル名を表示 -->
-      <p id="file_name" class="text-sm text-gray-500 mt-2"></p>
-      <!-- プレビュー表示領域 -->
-      <div class="mt-3">
-        <img id="image_preview"
-             src="#"
-             alt="選択画像プレビュー"
-             class="w-40 h-40 object-cover rounded-lg border border-t-border hidden">
-      </div>
-    </div>
-
-    <%= javascript_include_tag "shop_image_preview", type: "module" %>
-
-    <%# URL %>
-    <div class="mb-4">
-      <%= f.label :url, "URL（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
-      <%= f.url_field :url,
-            placeholder: "https://example.com",
-            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
-    </div>
-
-    <%# 住所 %>
-    <div class="mb-4">
-      <%= f.label :address, "住所（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
-      <%= f.text_field :address,
-            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
-    </div>
-
-    <%# わくわく度（5段階） %>
-    <div class="mb-4">
-      <label class="block text-sm font-medium mb-1 text-t-text-mid">わくわく度（5段階）</label>
-      <div class="flex space-x-1 text-3xl cursor-pointer">
-        <span data-star="1" class="text-gray-300">★</span>
-        <span data-star="2" class="text-gray-300">★</span>
-        <span data-star="3" class="text-gray-300">★</span>
-        <span data-star="4" class="text-gray-300">★</span>
-        <span data-star="5" class="text-gray-300">★</span>
-      </div>
-      <%= f.hidden_field :rating, id: "shop_rating" %>
-    </div>
-
-    <%# メモ %>
-    <div class="mb-4">
-      <%= f.label :memo, "メモ（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
-      <%= f.text_area :memo,
-            rows: 4,
-            class: "w-full p-3 border border-t-border rounded-lg bg-white focus:ring-t-primary focus:border-t-primary" %>
-    </div>
-
-    <%# ステータス %>
-    <div class="mb-6">
-      <%= f.label :status, "リスト", class: "block text-sm font-medium mb-2 text-t-text-mid" %>
-
-      <div class="space-y-2">
-        <label class="flex items-center space-x-2">
-          <%= f.radio_button :status, "want", class: "text-t-primary" %>
-          <span>行きたい</span>
-        </label>
-
-        <label class="flex items-center space-x-2">
-          <%= f.radio_button :status, "went", class: "text-t-primary" %>
-          <span>行った</span>
-        </label>
-      </div>
-    </div>
-
-    <%# 送信ボタン %>
-    <div class="mt-8">
-      <%= f.submit "追加する",
-          class: "w-full py-4 text-lg font-bold text-white rounded-xl 
-                 bg-t-primary shadow-[0_4px_0_0_#d8763a] active:shadow-[0_2px_0_0_#d8763a] 
-                 active:translate-y-0.5 transition cursor-pointer" %>
-    </div>
-
-  <% end %>
+  <%= render "form", shop: @shop %>
 
 </div>
