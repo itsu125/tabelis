@@ -1,5 +1,11 @@
 <div class="max-w-md w-full mx-auto bg-t-light-header shadow-xl rounded-xl p-6 border border-t-border text-t-dark">
 
+  <% if flash[:alert] %>
+    <div class="mb-4 p-4 rounded-xl border border-red-300 bg-red-50 text-red-800 text-sm font-medium shadow-sm">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
   <!-- メイン画像 -->
   <div class="w-full h-56 mb-6 overflow-hidden rounded-lg border border-t-border bg-t-light-header">
     <% if @shop.image.attached? %>
@@ -76,7 +82,7 @@
     <%= button_to "削除する",
         shop_path(@shop),
         method: :delete,
-        data: { confirm: "本当に削除しますか？" },
+        data: { turbo_confirm: "本当に削除しますか？" },
         class: "w-full py-3 rounded-lg font-bold text-center bg-t-dark text-white shadow hover:bg-[#2f1f12] transition" %>
 
     <!-- 戻る -->

@@ -22,7 +22,6 @@ class ShopsController < ApplicationController
   end
 
   def show
-    @shop = Shop.find(params[:id])
   end
 
   def edit
@@ -37,8 +36,11 @@ class ShopsController < ApplicationController
   end
 
   def destroy
-    @shop.destroy
-    redirect_to shops_path, notice: '削除しました🍂'
+    if @shop.destroy
+      redirect_to shops_path, notice: '削除しました🍂'
+    else
+      redirect_to shop_path(@shop), alert: "削除に失敗しました"
+    end
   end
 
   private

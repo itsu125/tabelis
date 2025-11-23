@@ -5,6 +5,18 @@
     🌰 My List
   </h2>
 
+  <% if flash[:notice] %>
+    <div class="mb-4 p-4 rounded-xl border border-green-300 bg-green-50 text-green-800 text-sm font-medium shadow-sm">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="mb-4 p-4 rounded-xl border border-red-300 bg-red-50 text-red-800 text-sm font-medium shadow-sm">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
   <!-- 店舗が0件の場合 -->
   <% if @shops.empty? %>
     <div class="text-center text-t-text-mid bg-t-light-header p-6 rounded-xl border border-t-border shadow">
