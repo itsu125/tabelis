@@ -49,7 +49,7 @@
 
   <!-- プロフィール編集 -->
   <%= link_to "プロフィール編集",
-              "#",
+              edit_user_path(current_user),
               class: "block mt-6 w-full py-2 text-center bg-t-primary text-white font-bold rounded-lg shadow hover:bg-[#d8853d] transition" %>
 
   <%= link_to "一覧へ戻る", shops_path,

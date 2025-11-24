@@ -1,0 +1,61 @@
+<div class="max-w-md mx-auto bg-t-light-header shadow-xl rounded-xl p-6 border border-t-border text-t-dark">
+
+
+  <!-- タイトル -->
+  <h1 class="text-xl font-bold mb-6 text-center">プロフィール編集</h1>
+
+  <% if @user.errors.any? %>
+    <div class="mb-4 p-4 bg-red-50 border border-red-300 text-red-700 rounded-lg">
+      <ul class="list-disc pl-5">
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: @user,
+                url: user_path(@user),
+                method: :patch,
+                local: true,
+                multipart: true do |f| %>
+
+    <!-- ユーザー名 -->
+    <div class="mb-6">
+      <%= f.label :name, "Name", class: "block mb-1 font-medium text-t-dark" %>
+      <%= f.text_field :name, class: "w-full border border-t-border rounded-lg px-3 py-2 bg-white focus:ring focus:ring-t-primary/30" %>
+    </div>
+
+    <!-- プロフィール画像 -->
+    <div class="mb-6">
+      <%= f.label :icon, "プロフィール画像（任意）", class: "block mb-2 font-medium text-t-dark" %>
+
+      <!-- 画像選択ボタン -->
+      <label class="flex items-center px-4 py-2 bg-t-secondary text-t-dark font-medium rounded-lg shadow cursor-pointer hover:bg-t-primary hover:text-white transition">
+        画像を選択
+        <%= f.file_field :icon, class: "hidden", id: "icon_input" %>
+      </label>
+
+      <!-- 選択したファイル名 -->
+      <p id="icon_file_name" class="text-sm text-gray-500 mt-2"></p>
+
+      <!-- プレビュー -->
+      <div class="mt-3 flex justify-center">
+        <img id="icon_preview"
+             src="<%= @user.icon.attached? ? url_for(@user.icon) : '#' %>"
+             alt="選択した画像プレビュー"
+             class="w-32 h-32 object-cover rounded-full border border-t-border <%= @user.icon.attached? ? '' : 'hidden' %>">
+      </div>
+    </div>
+
+    <!-- 更新ボタン -->
+    <%= f.submit "更新する",
+          class: "w-full py-3 rounded-lg font-bold text-center bg-t-primary text-white shadow hover:bg-t-dark transition" %>
+
+  <% end %>
+
+  <!-- マイページへ戻る -->
+  <%= link_to "マイページへ戻る",
+              mypage_path,
+              class: "block w-full mt-4 py-3 text-center rounded-lg font-bold bg-gray-200 text-t-dark hover:bg-gray-300 transition" %>
+</div>
