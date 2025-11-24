@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'mypages/show'
   get 'shops/index'
   devise_for :users
 
@@ -13,4 +14,5 @@ Rails.application.routes.draw do
   end
 
   resources :shops
+  resource :mypage, only: [:show]
 end
