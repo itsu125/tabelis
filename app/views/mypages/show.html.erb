@@ -1,4 +1,20 @@
-<div>
-  <h1 class="font-bold text-4xl">Mypages#show</h1>
-  <p>Find me in app/views/mypages/show.html.erb</p>
+<div class="max-w-md mx-auto bg-t-light-header shadow-xl rounded-xl p-6 border border-t-border text-t-dark">
+
+  <h2 class="text-2xl font-bold text-t-primary mb-4">
+    <span class="text-3xl">🐿️</span> マイページ
+  </h2>
+
+  <div class="mb-4">
+    <p class="text-lg font-semibold text-t-dark">
+      <%= @user.name %> さん
+    </p>
+  </div>
+
+  <div class="mb-6">
+    <p class="text-t-text-mid text-sm">登録したお店：</p>
+    <p class="text-2xl font-bold"><%= @shops.count %> 件</p>
+  </div>
+
+  <%= link_to "一覧へ戻る", shops_path,
+      class: "block mt-8 py-3 text-center bg-t-secondary text-t-dark rounded-lg font-bold shadow hover:bg-t-primary hover:text-white transition" %>
 </div>

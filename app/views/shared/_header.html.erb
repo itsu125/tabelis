@@ -10,12 +10,11 @@
     <% if user_signed_in? %>
       <div class="flex items-center gap-4">
 
-        <!-- マイページ（未実装） -->
-        <span class="font-semibold text-t-dark">
-          <%= current_user.name %>
-        </span>
+        <!-- マイページ -->
+        <%= link_to "マイページ", mypage_path,
+              class: "font-bold text-t-dark hover:text-t-primary" %>
 
-        <!-- 新規追加ボタン（未実装） -->
+        <!-- 新規追加ボタン -->
         <%= link_to new_shop_path, class: "text-3xl text-t-primary font-bold" do %>
           ＋
         <% end %>
