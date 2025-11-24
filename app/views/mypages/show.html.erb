@@ -1,19 +1,56 @@
 <div class="max-w-md mx-auto bg-t-light-header shadow-xl rounded-xl p-6 border border-t-border text-t-dark">
 
-  <h2 class="text-2xl font-bold text-t-primary mb-4">
-    <span class="text-3xl">🐿️</span> マイページ
-  </h2>
+  <!-- アイコン + ユーザー名 -->
+  <div class="text-center mb-6">
+    <% if @user.icon.attached? %>
+      <%= image_tag @user.icon, class: "w-24 h-24 rounded-full object-cover mx-auto border shadow" %>
+    <% else %>
+      <div class="w-24 h-24 rounded-full bg-gray-200 mx-auto flex items-center justify-center text-4xl">🐿️</div>
+    <% end %>
 
+    <h2 class="text-2xl font-bold mt-3 text-t-dark">
+      <%= @user.name %>
+    </h2>
+  </div>
+
+  <!-- 統計 -->
+  <div class="bg-white p-4 rounded-xl shadow-sm border border-t-border mb-6">
+    <h3 class="text-lg font-bold text-center mb-3 text-t-primary">あなたの記録</h3>
+
+    <div class="flex justify-around text-center">
+      <div>
+        <div class="text-xl font-bold text-t-primary"><%= @want_count %></div>
+        <div class="text-sm text-t-text-mid">行きたい</div>
+      </div>
+
+      <div>
+        <div class="text-xl font-bold text-green-700"><%= @went_count %></div>
+        <div class="text-sm text-t-text-mid">行った</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 最近追加したショップ（3件） -->
   <div class="mb-4">
-    <p class="text-lg font-semibold text-t-dark">
-      <%= @user.name %> さん
-    </p>
+    <h3 class="text-lg font-bold text-t-dark mb-3">最近追加したお店</h3>
+
+    <% if @recent_shops.any? %>
+      <div class="space-y-4">
+
+        <% @recent_shops.each do |shop| %>
+          <%= render "shops/shop_card", shop: shop %>
+        <% end %>
+
+      </div>
+    <% else %>
+      <p class="text-sm text-t-text-mid">まだ登録がありません</p>
+    <% end %>
   </div>
 
-  <div class="mb-6">
-    <p class="text-t-text-mid text-sm">登録したお店：</p>
-    <p class="text-2xl font-bold"><%= @shops.count %> 件</p>
-  </div>
+  <!-- プロフィール編集 -->
+  <%= link_to "プロフィール編集",
+              "#",
+              class: "block mt-6 w-full py-2 text-center bg-t-primary text-white font-bold rounded-lg shadow hover:bg-[#d8853d] transition" %>
 
   <%= link_to "一覧へ戻る", shops_path,
       class: "block mt-8 py-3 text-center bg-t-secondary text-t-dark rounded-lg font-bold shadow hover:bg-t-primary hover:text-white transition" %>
