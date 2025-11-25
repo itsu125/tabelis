@@ -4,11 +4,11 @@ class ShopsController < ApplicationController
   before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
 
   def index
-    @status = params[:status] || "want"   # デフォルトは「行きたい」
+    @status = params[:status] || 'want' # デフォルトは「行きたい」
 
     @shops = current_user.shops
-                          .where(status: Shop.statuses[@status])
-                          .order(created_at: :desc)
+                         .where(status: Shop.statuses[@status])
+                         .order(created_at: :desc)
   end
 
   def new
