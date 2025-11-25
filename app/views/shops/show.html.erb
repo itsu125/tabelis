@@ -38,6 +38,7 @@
   <!-- 基本情報 -->
   <div class="space-y-4">
 
+    <!-- カテゴリ -->
     <div>
       <p class="text-sm font-bold text-t-dark mb-1">カテゴリ</p>
       <% if @shop.category.present? %>
@@ -53,11 +54,31 @@
       <% end %>
     </div>
 
+    <!-- タグ -->
+    <div class="mb-4">
+      <p class="text-sm font-bold text-t-dark">タグ</p>
+      <div class="flex flex-wrap gap-2 mt-1">
+        <% @shop.tags.each do |tag| %>
+          <span class="px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap"
+                style="background-color: <%= tag.color || '#e5e7eb' %>; color: #442e18;">
+            <%= tag.name %>
+          </span>
+        <% end %>
+        <% if @shop.tags.empty? %>
+          <span class="px-2 py-1 bg-gray-200 text-gray-600 border border-gray-300 rounded-full text-xs">
+            タグ未選択
+          </span>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 住所 -->
     <div>
       <p class="text-sm font-bold text-t-dark">住所</p>
       <p class="text-t-text-mid"><%= @shop.address.presence || "未設定" %></p>
     </div>
 
+    <!-- URL -->
     <div>
       <p class="text-sm font-bold text-t-dark">URL</p>
       <% if @shop.url.present? %>
@@ -70,6 +91,7 @@
       <% end %>
     </div>
 
+    <!-- メモ -->
     <div>
       <p class="text-sm font-bold text-t-dark">メモ</p>
       <p class="text-t-text-mid whitespace-pre-line">
@@ -77,6 +99,7 @@
       </p>
     </div>
 
+    <!-- 登録日 -->
     <div>
       <p class="text-sm font-bold text-t-dark">登録日</p>
       <p class="text-t-text-mid"><%= l @shop.created_at, format: :long %></p>

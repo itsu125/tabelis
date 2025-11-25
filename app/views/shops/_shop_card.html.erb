@@ -58,11 +58,20 @@
           <%= shop.address.presence || "住所未登録" %>
         </div>
 
-        <!-- 横スクロールタグ（最下部） -->
+        <!-- 横スクロールタグ -->
         <div class="flex space-x-2 overflow-x-auto pb-1">
-          <!-- 今はダミー -->
-          <span class="flex-shrink-0 px-2 py-1 bg-yellow-100 text-amber-900 border border-yellow-400 rounded-full text-xs">#カフェ</span>
-          <span class="flex-shrink-0 px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">東京・渋谷</span>
+          <% shop.tags.each do |tag| %>
+            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap"
+                  style="background-color: <%= tag.color || '#e5e7eb' %>; color: #442e18;">
+              <%= tag.name %>
+            </span>
+          <% end %>
+
+          <% if shop.tags.empty? %>
+            <span class="flex-shrink-0 px-2 py-1 bg-gray-200 text-gray-600 border border-gray-300 rounded-full text-xs">
+              タグ未選択
+            </span>
+          <% end %>
         </div>
       </div>
     </div>
