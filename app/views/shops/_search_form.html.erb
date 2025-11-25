@@ -35,7 +35,8 @@
                    class="hidden"
                    <%= "checked" if selected %>>
 
-            <span class="px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap
+            <span data-color-class="<%= tag.color_class %>"
+                  class="px-2 py-1 rounded-full text-xs border whitespace-nowrap
                          <%= selected ? tag.color_class : 'bg-gray-200 text-gray-700 border-gray-300' %>">
               <%= tag.name %>
             </span>
