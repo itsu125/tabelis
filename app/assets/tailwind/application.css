@@ -61,3 +61,16 @@
     border-color: var(--t-primary);
   }
 }
+
+/* ======== タグカラー（固定パステルカラー） ======== */
+@layer utilities {
+
+  .bg-tag-hitori    { background-color: #A8D5BA; color: #442e18; }
+  .bg-tag-friends   { background-color: #F7E39C; color: #442e18; }
+  .bg-tag-family    { background-color: #F7B2AD; color: #442e18; }
+  .bg-tag-memory    { background-color: #CDB4DB; color: #442e18; }
+  .bg-tag-lunch     { background-color: #A3CEF1; color: #442e18; }
+  .bg-tag-dinner    { background-color: #7BA6DE; color: #442e18; }
+  .bg-tag-takeout   { background-color: #F6C7C3; color: #442e18; }
+
+}
