@@ -39,6 +39,21 @@
   <div class="space-y-4">
 
     <div>
+      <p class="text-sm font-bold text-t-dark mb-1">カテゴリ</p>
+      <% if @shop.category.present? %>
+        <span class="inline-flex items-center w-auto px-2 py-1 rounded-full text-xs
+                     bg-t-secondary text-t-dark border border-t-border whitespace-nowrap">
+          <%= @shop.category.name %>
+        </span>
+      <% else %>
+        <span class="inline-flex items-center w-auto px-2 py-1 rounded-full text-xs
+                     bg-gray-200 text-gray-600 border border-gray-400 whitespace-nowrap">
+          未分類
+        </span>
+      <% end %>
+    </div>
+
+    <div>
       <p class="text-sm font-bold text-t-dark">住所</p>
       <p class="text-t-text-mid"><%= @shop.address.presence || "未設定" %></p>
     </div>
