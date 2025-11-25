@@ -38,3 +38,26 @@
   .shadow-t-primary { box-shadow: 0 4px 0 0 var(--t-shadow); }
   .shadow-t-primary-active { box-shadow: 0 2px 0 0 var(--t-shadow); }
 }
+
+/* ======== カテゴリボタン（通常 / hover / checked） ======== */
+@layer utilities {
+
+  /* 通常（少し濃いベージュ） */
+  .category-btn {
+    background-color: #f5e4c4;  /* 濃いめクリーム */
+    color: var(--t-dark);
+    border: 1px solid var(--t-border);
+  }
+
+  /* hover（さらに濃い色） */
+  .category-btn:hover {
+    background-color: #e9d3ab;  /* hoverで濃く */
+  }
+
+  /* 選択時（checked） */
+  input[type="radio"]:checked + .category-btn {
+    background-color: var(--t-primary);
+    color: white;
+    border-color: var(--t-primary);
+  }
+}

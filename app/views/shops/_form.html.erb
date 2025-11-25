@@ -7,6 +7,32 @@
           class: "w-full p-3 rounded-lg border border-t-border bg-white focus:ring-t-primary focus:border-t-primary" %>
   </div>
 
+  <%# カテゴリ %>
+  <div class="mb-4">
+    <%= f.label :category_id, "カテゴリ（任意）", class: "block text-sm font-medium mb-2 text-t-text-mid" %>
+
+    <div class="flex flex-wrap gap-2">
+      <% Category.all.each do |category| %>
+        <label class="cursor-pointer">
+          <%= f.radio_button :category_id, category.id, class: "hidden" %>
+          <span class="category-btn px-3 py-1 rounded-full text-sm transition">
+            <%= category.name %>
+          </span>
+        </label>
+      <% end %>
+
+      <%# 「未選択に戻す」ボタン %>
+      <label class="cursor-pointer">
+        <%= f.radio_button :category_id, nil, class: "hidden peer" %>
+        <div class="px-3 py-1 rounded-full border border-t-border text-sm
+                    peer-checked:bg-gray-300 peer-checked:text-t-dark
+                    hover:bg-gray-200 transition">
+          選択しない
+        </div>
+      </label>
+    </div>
+  </div>
+
   <%# 画像 %>
   <div class="mb-4">
     <%= f.label :image, "写真・画像（任意）", class: "block text-sm font-medium mb-1 text-t-text-mid" %>
