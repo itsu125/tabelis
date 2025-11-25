@@ -59,8 +59,8 @@
       <p class="text-sm font-bold text-t-dark">タグ</p>
       <div class="flex flex-wrap gap-2 mt-1">
         <% @shop.tags.each do |tag| %>
-          <span class="px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap"
-                style="background-color: <%= tag.color || '#e5e7eb' %>; color: #442e18;">
+          <span class="px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap
+                       <%= tag.color_class.presence || 'bg-gray-200 text-gray-700 border-gray-300' %>">
             <%= tag.name %>
           </span>
         <% end %>

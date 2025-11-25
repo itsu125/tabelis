@@ -57,27 +57,24 @@
     </div>
   </div>
 
-  <%# タグ（シーン） %>
+  <!-- タグ（シーン） -->
   <div class="mb-4">
     <label class="block text-sm font-medium mb-1 text-t-text-mid">タグ（複数選択可）</label>
-
     <div id="tag-select" class="flex flex-wrap gap-2">
       <% Tag.all.each do |tag| %>
         <% selected = shop.tags.include?(tag) %>
-
-        <button type="button"
-                data-tag-id="<%= tag.id %>"
-                data-tag-color="<%= tag.color %>"
-                class="tag-pill px-3 py-1 rounded-full text-xs border
-                       <%= selected ? '' : 'bg-gray-200 text-gray-700 border-gray-300' %>"
-                style="<%= selected ? "background-color: #{tag.color}; color: var(--t-dark);" : "" %>">
+        <button
+          type="button"
+          data-tag-id="<%= tag.id %>"
+          data-tag-color-class="<%= tag.color_class %>"
+          class="tag-pill px-3 py-1 rounded-full text-xs border
+                 <%= selected ? tag.color_class : 'bg-gray-200 text-gray-700 border-gray-300' %>">
           <%= tag.name %>
         </button>
       <% end %>
     </div>
-
+    <!-- hidden inputs（複数選択用） -->
     <%= hidden_field_tag "shop[tag_ids][]", nil %>  <%# 空を送ることで未選択も許容 %>
-
     <% shop.tags.each do |tag| %>
       <%= hidden_field_tag "shop[tag_ids][]", tag.id %>
     <% end %>

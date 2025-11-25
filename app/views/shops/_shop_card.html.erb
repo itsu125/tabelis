@@ -61,14 +61,13 @@
         <!-- 横スクロールタグ -->
         <div class="flex space-x-2 overflow-x-auto pb-1">
           <% shop.tags.each do |tag| %>
-            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap"
-                  style="background-color: <%= tag.color || '#e5e7eb' %>; color: #442e18;">
+            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap
+                         <%= tag.color_class %>">
               <%= tag.name %>
             </span>
           <% end %>
-
           <% if shop.tags.empty? %>
-            <span class="flex-shrink-0 px-2 py-1 bg-gray-200 text-gray-600 border border-gray-300 rounded-full text-xs">
+            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs bg-gray-200 text-gray-600 border border-gray-300">
               タグ未選択
             </span>
           <% end %>
