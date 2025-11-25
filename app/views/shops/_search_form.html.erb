@@ -1,0 +1,53 @@
+<div class="bg-t-light-header p-4 rounded-xl shadow mb-4 border border-t-border">
+
+  <%= search_form_for @q, url: shops_path, method: :get do |f| %>
+
+    <%# --- フリーワード（店名含む） --- %>
+    <div class="mb-2">
+      <%= f.text_field :name_or_memo_or_address_cont,
+            placeholder: "店名、場所、メモなどで検索",
+            class: "w-full p-2 border border-t-border rounded-lg bg-white" %>
+    </div>
+
+    <%# --- カテゴリ --- %>
+    <div class="mb-2">
+      <%= f.label :category_id_eq, "カテゴリ",
+            class: "block text-sm font-bold text-t-text-mid mb-1" %>
+
+      <%= f.select :category_id_eq,
+            @categories.map { |c| [c.name, c.id] },
+            { include_blank: "選択なし" },
+            class: "w-full p-2 border border-t-border rounded-lg bg-white" %>
+    </div>
+
+    <%# --- タグ（ pill 複数選択） --- %>
+    <div class="mb-2">
+      <p class="block text-sm font-bold text-t-text-mid mb-1">タグ（複数選択）</p>
+
+      <div class="flex flex-wrap gap-2">
+        <% Tag.all.each do |tag| %>
+          <% selected = (params[:tags]&.include?(tag.id.to_s)) %>
+
+          <label class="cursor-pointer">
+            <input type="checkbox"
+                   name="tags[]"
+                   value="<%= tag.id %>"
+                   class="hidden"
+                   <%= "checked" if selected %>>
+
+            <span class="px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap
+                         <%= selected ? tag.color_class : 'bg-gray-200 text-gray-700 border-gray-300' %>">
+              <%= tag.name %>
+            </span>
+          </label>
+        <% end %>
+      </div>
+    </div>
+
+    <%# --- 検索 / リセット --- %>
+    <div class="flex gap-2 mt-3">
+      <%= f.submit "検索", class: "flex-1 py-1.5 bg-t-primary text-white rounded-lg font-bold" %>
+    </div>
+
+  <% end %>
+</div>

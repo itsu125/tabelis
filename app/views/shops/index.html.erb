@@ -16,10 +16,27 @@
     <% end %>
   </div>
 
-  <!-- 見出し -->
-  <h2 class="text-2xl font-bold text-t-text-mid mb-4 border-b border-t-border pb-2 text-center">
-    🌰 My List
-  </h2>
+  <!-- 検索トグル + リセットボタン -->
+  <div class="flex gap-2 mb-4">
+    <!-- 🔍検索 トグルボタン -->
+    <button id="search-toggle"
+            class="flex-1 flex items-center justify-between px-4 py-2 
+                   border border-t-border rounded-lg text-t-dark bg-white shadow-sm">
+      <span class="font-semibold">🔍 検索</span>
+      <span id="search-toggle-icon" class="text-sm">▼</span>
+    </button>
+    <!-- リセットボタン（一覧全体をリセット） -->
+    <%= link_to "リセット",
+          shops_path(status: @status),  # 今開いているタブ状態を維持したままリセット
+          class: "w-24 text-center px-4 py-2 bg-gray-200 text-gray-700 
+                  rounded-lg font-bold border border-gray-300 shadow-sm" %>
+  </div>
+
+  <!-- 検索フォーム（折りたたみ部） -->
+  <div id="search-panel"
+       class="mt-3 mb-4 p-3 border border-t-border rounded-lg bg-t-light-header shadow-sm hidden opacity-0 transform -translate-y-1 transition-all duration-200">
+    <%= render "search_form", q: @q, categories: @categories %>
+  </div>
 
   <% if flash[:notice] %>
     <div class="mb-4 p-4 rounded-xl border border-green-300 bg-green-50 text-green-800 text-sm font-medium shadow-sm">
