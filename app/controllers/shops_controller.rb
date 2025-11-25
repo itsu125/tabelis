@@ -39,7 +39,7 @@ class ShopsController < ApplicationController
     if @shop.destroy
       redirect_to shops_path, notice: '削除しました🍂'
     else
-      redirect_to shop_path(@shop), alert: "削除に失敗しました"
+      redirect_to shop_path(@shop), alert: '削除に失敗しました'
     end
   end
 
@@ -51,7 +51,7 @@ class ShopsController < ApplicationController
 
   # 他ユーザーのURL直打ち対策
   def authorize_user!
-    redirect_to shops_path, alert: "アクセスできません。" unless @shop.user_id == current_user.id
+    redirect_to shops_path, alert: 'アクセスできません。' unless @shop.user_id == current_user.id
   end
 
   def shop_params

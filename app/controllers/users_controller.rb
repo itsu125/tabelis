@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout "application"
+  layout 'application'
   before_action :authenticate_user!
 
   def edit
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = current_user
 
     if @user.update(user_params)
-      redirect_to mypage_path, notice: "プロフィールを更新しました"
+      redirect_to mypage_path, notice: 'プロフィールを更新しました'
     else
       render :edit, status: :unprocessable_entity
     end
