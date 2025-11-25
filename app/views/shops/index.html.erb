@@ -1,7 +1,23 @@
 <div class="w-full max-w-md mx-auto px-4">
 
+  <div class="flex border-b border-t-border mb-4">
+    <%# 行きたい %>
+    <%= link_to shops_path(status: "want"),
+          class: "flex-1 text-center py-2 font-bold 
+                  #{ @status == "want" ? 'text-t-primary border-b-2 border-t-primary' : 'text-t-text-mid'}" do %>
+      行きたいリスト
+    <% end %>
+
+    <%# 行った %>
+    <%= link_to shops_path(status: "went"),
+          class: "flex-1 text-center py-2 font-bold
+                  #{ @status == "went" ? 'text-t-primary border-b-2 border-t-primary' : 'text-t-text-mid'}" do %>
+      行ったリスト
+    <% end %>
+  </div>
+
   <!-- 見出し -->
-  <h2 class="text-2xl font-bold text-t-text-mid mb-4 border-b border-t-border pb-2">
+  <h2 class="text-2xl font-bold text-t-text-mid mb-4 border-b border-t-border pb-2 text-center">
     🌰 My List
   </h2>
 
