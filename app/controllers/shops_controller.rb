@@ -4,11 +4,19 @@ class ShopsController < ApplicationController
   before_action :authorize_user!, only: [:show, :edit, :update, :destroy]
 
   def index
-    @status = params[:status] || 'want' # デフォルトは「行きたい」
+    @status = params[:status] || "want" # デフォルトは「行きたい」
+    @categories = Category.all
+    # Ransack 検索オブジェクト作成（current_user.shops を対象にする）
+    @q = current_user.shops.ransack(params[:q])
+    # 検索結果へステータス絞り込みを組み合わせる
+    @shops = @q.result
+             .where(status: Shop.statuses[@status])
+             .order(created_at: :desc)
 
-    @shops = current_user.shops
-                         .where(status: Shop.statuses[@status])
-                         .order(created_at: :desc)
+    # --- タグ絞り込み（複数 OR 条件） ---
+    if params[:tags].present?
+      @shops = @shops.joins(:tags).where(tags: { id: params[:tags] }).distinct
+    end
   end
 
   def new
