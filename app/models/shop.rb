@@ -1,5 +1,6 @@
 class Shop < ApplicationRecord
   belongs_to :user
+  belongs_to :category, optional: true  # 未選択でもOK
   has_one_attached :image
 
   # 行きたい / 行った
