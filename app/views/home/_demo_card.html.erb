@@ -1,0 +1,62 @@
+<div onclick="showMessage('<%= demo[:name] %> の詳細（デモ）')"
+     class="block bg-t-light-header border border-t-border rounded-xl shadow hover:shadow-xl transition overflow-hidden cursor-pointer">
+
+  <div class="w-full h-44 sm:h-56 flex flex-col">
+
+    <!-- 店名エリア（カード上部） -->
+    <div class="h-[15%] bg-[#fff3d4] flex items-center justify-center px-2">
+      <h3 class="text-base font-bold text-t-dark text-center truncate">
+        <%= demo[:name] %>
+      </h3>
+    </div>
+
+    <!-- 画像 + 情報 -->
+    <div class="h-[85%] flex">
+      <!-- 画像エリア -->
+      <div class="flex-shrink-0 w-[45%] p-2">
+        <div class="w-full aspect-square bg-white rounded-lg overflow-hidden border border-t-border">
+          <img src="<%= demo[:image] %>" class="w-full h-full object-cover">
+        </div>
+      </div>
+
+      <!-- テキストエリア -->
+      <div class="w-[55%] flex flex-col justify-between py-2 pr-2">
+
+        <!-- カテゴリ -->
+        <span class="inline-flex items-center w-fit max-w-[90%] px-2 py-1 rounded-full text-xs whitespace-nowrap
+                     <%= demo[:category_class] %>">
+          <%= demo[:category] %>
+        </span>
+
+        <!-- わくわく度（★） -->
+        <div class="mt-1 text-xs font-semibold text-t-text-mid leading-none">
+          わくわく度
+        </div>
+        <div class="text-yellow-400 text-base font-bold flex">
+          <% 5.times do |i| %>
+            <% if demo[:rating] >= i + 1 %>
+              <span class="text-t-primary">★</span>
+            <% else %>
+              <span class="text-gray-300">★</span>
+            <% end %>
+          <% end %>
+        </div>
+
+        <!-- 住所 -->
+        <div class="text-xs text-t-text-mid opacity-80 leading-tight line-clamp-2">
+          <%= demo[:address] %>
+        </div>
+
+        <!-- タグ -->
+        <div class="flex space-x-2 overflow-x-auto pb-1">
+          <% demo[:tags].each do |t| %>
+            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap <%= t[:class] %>">
+              <%= t[:name] %>
+            </span>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
