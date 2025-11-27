@@ -16,15 +16,14 @@ class Shop < ApplicationRecord
     less_than_or_equal_to: 5
   }
 
-  def self.ransackable_attributes(auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     %w[
       name memo address url category_id status rating
       created_at updated_at
     ]
   end
 
-  def self.ransackable_associations(auth_object = nil)
+  def self.ransackable_associations(_auth_object = nil)
     %w[category tags]
   end
-
 end
