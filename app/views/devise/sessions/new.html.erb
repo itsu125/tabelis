@@ -1,7 +1,10 @@
 <div class="max-w-md mx-auto p-6 bg-t-light-header rounded-xl shadow-2xl border border-t-border my-8 text-t-dark">
   
-  <h2 class="text-3xl font-extrabold text-center text-t-primary mb-6">
-    <span class="text-4xl">🐿️</span> ログイン
+  <h2 class="text-3xl font-extrabold text-t-primary mb-6">
+    <div class="flex justify-center items-center gap-2">
+      <%= image_tag "risu_no_backcolor.png", class: "h-10 w-10 object-cover rounded-full" %>
+      <span class="text-3xl font-extrabold">ログイン</span>
+    </div>
   </h2>
 
   <% flash.discard(:notice) %>
