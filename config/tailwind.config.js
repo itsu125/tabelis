@@ -12,6 +12,10 @@ module.exports = {
     "bg-tag-lunch",
     "bg-tag-dinner",
     "bg-tag-takeout",
+    "w-16",
+    "h-16",
+    "w-10",
+    "h-10",
   ],
   theme: {
     extend: {},
