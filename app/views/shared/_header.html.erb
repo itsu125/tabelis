@@ -2,21 +2,21 @@
   <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
 
     <!-- 左側：ロゴ -->
-    <%= link_to root_path, class: "text-2xl font-bold text-t-primary flex items-center gap-2" do %>
+    <%= link_to root_path, class: "text-2xl font-bold text-t-primary flex items-center gap-2 shrink-0" do %>
       <%= image_tag "risu_no_backcolor.png", class: "h-10 w-10 object-cover rounded-full" %>
       <span>Tabelis</span>
     <% end %>
 
     <!-- 右側 -->
     <% if user_signed_in? %>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-1 sm:gap-4 flex-nowrap">
 
         <!-- マイページ -->
         <%= link_to "マイページ", mypage_path,
-              class: "font-bold text-t-dark hover:text-t-primary" %>
+              class: "font-bold text-t-dark hover:text-t-primary shrink" %>
 
         <!-- 新規追加ボタン -->
-        <%= link_to new_shop_path, class: "text-3xl text-t-primary font-bold" do %>
+        <%= link_to new_shop_path, class: "text-2xl sm:text3xl text-t-primary font-bold shrink-0" do %>
           ＋
         <% end %>
 
@@ -24,7 +24,7 @@
         <%= link_to "ログアウト",
               destroy_user_session_path,
               data: { turbo_method: :delete },
-              class: "text-t-dark font-medium hover:text-t-primary transition" %>
+              class: "text-t-dark font-medium hover:text-t-primary transition shrink" %>
       </div>
     <% end %>
   </div>
