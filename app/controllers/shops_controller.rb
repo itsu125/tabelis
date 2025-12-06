@@ -8,10 +8,8 @@ class ShopsController < ApplicationController
     @categories = Category.all
     # Ransack 検索オブジェクト作成（current_user.shops を対象にする）
     @q = current_user.shops.ransack(params[:q])
-    # 検索結果へステータス絞り込みを組み合わせる
-    @shops = @q.result
-               .where(status: Shop.statuses[@status])
-               .order(created_at: :desc)
+    # 検索結果を取得し、作成日の降順で並び替え
+    @shops = @q.result.order(created_at: :desc)
 
     # --- タグ絞り込み（複数 OR 条件） ---
     return if params[:tags].blank?

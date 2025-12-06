@@ -1,19 +1,17 @@
 <div class="w-full max-w-md mx-auto px-4">
 
-  <div class="flex border-b border-t-border mb-4">
+  <div class="flex border-b border-t-border mb-4" id="shops-tabs">
     <%# 行きたい %>
-    <%= link_to shops_path(status: "want"),
-          class: "flex-1 text-center py-2 font-bold 
-                  #{ @status == "want" ? 'text-t-primary border-b-2 border-t-primary' : 'text-t-text-mid'}" do %>
+    <button type="button"
+      class= "tab-btn flex-1 text-center py-2 font-bold text-t-primary border-b-2 border-t-primary" data-status="want">
       行きたいリスト
-    <% end %>
+    </button>
 
     <%# 行った %>
-    <%= link_to shops_path(status: "went"),
-          class: "flex-1 text-center py-2 font-bold
-                  #{ @status == "went" ? 'text-t-primary border-b-2 border-t-primary' : 'text-t-text-mid'}" do %>
+    <button type="button"
+      class= "tab-btn flex-1 text-center py-2 font-bold text-t-text-mid" data-status="went">
       行ったリスト
-    <% end %>
+    </button>
   </div>
 
   <!-- 検索トグル + リセットボタン -->
@@ -60,9 +58,11 @@
   <% else %>
 
     <!-- 店舗カード一覧 -->
-    <div class="space-y-4">
+    <div class="space-y-4" id="shops-list">
       <% @shops.each do |shop| %>
-        <%= render partial: "shop_card", locals: { shop: shop } %>
+        <div class="shop-card" data-status="<%= shop.status %>">
+          <%= render partial: "shop_card", locals: { shop: shop } %>
+        </div>
       <% end %>
     </div>
 
