@@ -12,6 +12,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet">
+    <script defer
+      src="<%= "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google_maps[:api_key]}&libraries=marker" %>">
+    </script>
   </head>
 
   <body class="bg-t-light-bg text-t-dark">
