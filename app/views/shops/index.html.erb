@@ -30,10 +30,10 @@
                   rounded-lg font-bold borser borser-gray-300 shadow-sm text-xs" %>
     <!-- map切り替えボタン -->
     <button type="button" id="toggle-map-button"
-      class="flex-none w-16 px-2 py-2 bg-t-light-header text-t-dark 
-             rounded-lg border border-t-border shadow-sm text-xs 
-             flex items-center justify-center gap-1">
-      🗺<span>地図</span>
+      class="flex-none w-12 h-12 p-0 bg-transparent rounded-lg overflow-hidden 
+             flex items-center justify-center">
+      <%= image_tag "map_icon.png",
+            class: "w-full h-full object-contain" %>
     </button>
   </div>
 

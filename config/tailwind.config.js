@@ -14,6 +14,8 @@ module.exports = {
     "bg-tag-takeout",
     "w-16",
     "h-16",
+    "w-12",
+    "h-12",
     "w-10",
     "h-10",
   ],
