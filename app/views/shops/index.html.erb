@@ -1,5 +1,5 @@
 <div class="w-full max-w-md mx-auto px-4">
-
+  <!-- タブ切り替えボタン -->
   <div class="flex border-b border-t-border mb-4" id="shops-tabs">
     <%# 行きたい %>
     <button type="button"
@@ -14,11 +14,11 @@
     </button>
   </div>
 
-  <!-- 検索トグル + リセットボタン -->
-  <div class="flex gap-2 mb-4">
+  <!-- 検索トグル + リセットボタン + map切り替えボタン -->
+  <div class="flex items-center gap-2 mb-4">
     <!-- 🔍検索 トグルボタン -->
     <button id="search-toggle"
-            class="flex-1 flex items-center justify-between px-4 py-2 
+            class="flex-1 flex items-center justify-between px-3 py-2 
                    border border-t-border rounded-lg text-t-dark bg-white shadow-sm">
       <span class="font-semibold">🔍 検索</span>
       <span id="search-toggle-icon" class="text-sm">▼</span>
@@ -26,8 +26,15 @@
     <!-- リセットボタン（一覧全体をリセット） -->
     <%= link_to "リセット",
           shops_path(status: @status),  # 今開いているタブ状態を維持したままリセット
-          class: "w-24 text-center px-4 py-2 bg-gray-200 text-gray-700 
-                  rounded-lg font-bold border border-gray-300 shadow-sm text-sm" %>
+          class: "flex-none w-16 text-center px-2 py-2 bg-gray-200 text-gray-700 
+                  rounded-lg font-bold borser borser-gray-300 shadow-sm text-xs" %>
+    <!-- map切り替えボタン -->
+    <button type="button" id="toggle-map-button"
+      class="flex-none w-16 px-2 py-2 bg-t-light-header text-t-dark 
+             rounded-lg border border-t-border shadow-sm text-xs 
+             flex items-center justify-center gap-1">
+      🗺<span>地図</span>
+    </button>
   </div>
 
   <!-- 検索フォーム（折りたたみ部） -->
@@ -47,6 +54,11 @@
       <%= flash[:alert] %>
     </div>
   <% end %>
+
+  <!-- 地図表示エリア -->
+  <div
+    id="map" style="width: 100%; height: 300px;" class="mb-4 rounded-x1 border border-t-border hidden">
+  </div>
 
   <!-- 店舗が0件の場合 -->
   <% if @shops.empty? %>
