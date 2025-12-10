@@ -1,4 +1,8 @@
 console.log("map.js 読み込まれました");
+// マップ本体＆現在地マーカーの変数を空で宣言
+let map;
+let currentLocationMarker;
+
 // Google Maps の初期化関数
 function initMap() {
   console.log("initMap が呼ばれました！");
@@ -11,19 +15,65 @@ function initMap() {
     return;
   }
 
-  // Map インスタンスを作成（ここで地図が描画される）
-  const map = new google.maps.Map(mapElement, {
+  // マップオプションを変数に格納
+  const mapOptions = {
+    zoom: 15,
     center: center,
-    zoom: 14,
-  });
+  };
 
-  // 中心にピン（マーカー）を立てる
-  new google.maps.Marker({
-    position: center,
-    map: map,
-    title: "東京駅（仮ピン）",
-  });
-}
+  // Map インスタンスを作成（ここで地図が描画される）
+  map = new google.maps.Map(mapElement, mapOptions);
+
+  // 現在地取得
+  if (navigator.geolocation) {
+
+    // オプション設定(最大5秒待機、高精度OFF、最新位置のみ取得)
+    const geoOptions = {
+      timeout: 5000,
+      enableHighAccuracy: false,
+      maximumAge: 0,
+    };
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+
+        // 現在地の緯度・軽度を変数に格納
+        let nowLat = pos.coords.latitude;
+        let nowLng = pos.coords.longitude;
+
+        console.log("現在地取得しました", nowLat, nowLng);
+
+        // Google Maps 用の座標オブジェクト
+        let nowLatLng = new google.maps.LatLng(nowLat, nowLng);
+
+        // 地図の中心を現在地に移動
+        map.setCenter(nowLatLng);
+        map.setZoom(15);
+
+        // 既存マーカーがあれば削除
+        if (currentLocationMarker) {
+          currentLocationMarker.setMap(null);
+        }
+
+        // 現在地にピンを立てる
+        currentLocationMarker = new google.maps.Marker({
+          position: nowLatLng,
+          map: map,
+          title: "現在地",
+          icon: {
+            url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+          },
+        });
+      },
+      (err) => {
+        console.warn("現在地を取得できませんでした:", err);
+      },
+      geoOptions
+    );
+  } else {
+    console.warn("このブラウザでは位置情報がサポートされていません");
+  }
+};
 
 // Turbo がロードされたときに initMap を呼び出す
 document.addEventListener("turbo:load", () => {
