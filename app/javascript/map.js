@@ -34,17 +34,28 @@ function initMap() {
       maximumAge: 0,
     };
 
+    // ショップデータを data-shops 属性から取得
+    const shopsDataRaw = mapElement.dataset.shops;
+    let shopsData = [];
+
+    // JSONパース（中身が空配列の場合もあるので安全に処理）
+    try {
+      shopsData = JSON.parse(shopsDataRaw);
+      console.log("ショップデータ読み込み成功", shopsData);
+    } catch (e) {
+      console.warn("ショップデータのパースに失敗しました:", e);
+    }
+
     navigator.geolocation.getCurrentPosition(
       (pos) => {
 
         // 現在地の緯度・軽度を変数に格納
         let nowLat = pos.coords.latitude;
         let nowLng = pos.coords.longitude;
-
-        console.log("現在地取得しました", nowLat, nowLng);
-
         // Google Maps 用の座標オブジェクト
         let nowLatLng = new google.maps.LatLng(nowLat, nowLng);
+
+        console.log("現在地取得しました", nowLat, nowLng);
 
         // 地図の中心を現在地に移動
         map.setCenter(nowLatLng);
@@ -61,8 +72,21 @@ function initMap() {
           map: map,
           title: "現在地",
           icon: {
-            url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            url: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
           },
+        });
+        // ショップデータに基づいてピンを立てる
+        shopsData.forEach((shop) => {
+          const position = new google.maps.LatLng(shop.latitude, shop.longitude);
+
+          new google.maps.Marker({
+            position: position,
+            map: map,
+            title: shop.name,
+            icon: {
+              url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            }
+          });
         });
       },
       (err) => {

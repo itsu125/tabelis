@@ -12,9 +12,12 @@ class ShopsController < ApplicationController
     @shops = @q.result.order(created_at: :desc)
 
     # --- タグ絞り込み（複数 OR 条件） ---
-    return if params[:tags].blank?
+    if params[:tags].present?
+      @shops = @shops.joins(:tags).where(tags: { id: params[:tags] }).distinct
+    end
 
-    @shops = @shops.joins(:tags).where(tags: { id: params[:tags] }).distinct
+    # --- 緯度経度が存在する店舗のみ取得 ---
+    @shops_with_location = @shops.where.not(latitude: nil, longitude: nil)
   end
 
   def new
