@@ -1,4 +1,12 @@
+# Railsが外部APIにアクセスするために必要
+require "net/http"
+require "uri"
+require "json"
+
 class Shop < ApplicationRecord
+  # 保存前のバリデーションのタイミングで住所のGeocodingを実行
+  before_validation :geocode_address, if: :should_geocode?
+
   belongs_to :user
   belongs_to :category, optional: true # 未選択でもOK
   has_one_attached :image
@@ -25,5 +33,32 @@ class Shop < ApplicationRecord
 
   def self.ransackable_associations(_auth_object = nil)
     %w[category tags]
+  end
+
+  private
+  # 住所変更時のみ Google Geocoding API を呼び出す
+  def should_geocode?
+    address.present? && will_save_change_to_address?
+  end
+
+  # Google Geocoding API を読んで Latitude / Longitude を更新
+  def geocode_address
+    api_key = Rails.application.credentials.google_geocoding[:api_key]
+    base_url = "https://maps.googleapis.com/maps/api/geocode/json"
+    url = URI.parse("#{base_url}?address=#{URI.encode_www_form_component(address)}&key=#{api_key}")
+
+    response = Net::HTTP.get(url)
+    result = JSON.parse(response)
+
+    if result["status"] == "OK"
+      location = result["results"][0]["geometry"]["location"]
+      self.latitude = location["lat"]
+      self.longitude = location["lng"]
+    else
+      # API失敗時:nilセット（地図非対応店舗として扱う）
+      self.latitude = nil
+      self.longitude = nil
+      Rails.logger.warn "Geocoding failed for address: #{address}, reason: #{result["status"]}"
+    end
   end
 end
