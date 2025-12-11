@@ -6,6 +6,7 @@ require "json"
 class Shop < ApplicationRecord
   # 保存前のバリデーションのタイミングで住所のGeocodingを実行
   before_validation :geocode_address, if: :should_geocode?
+  before_validation :clear_geocode_if_address_blank
 
   belongs_to :user
   belongs_to :category, optional: true # 未選択でもOK
@@ -41,7 +42,14 @@ class Shop < ApplicationRecord
     address.present? && will_save_change_to_address?
   end
 
-  # Google Geocoding API を読んで Latitude / Longitude を更新
+  def clear_geocode_if_address_blank
+    if address.blank?
+      self.latitude = nil
+      self.longitude = nil
+    end
+  end
+
+  # Google Geocoding API を呼んで Latitude / Longitude を更新
   def geocode_address
     api_key = Rails.application.credentials.google_geocoding[:api_key]
     base_url = "https://maps.googleapis.com/maps/api/geocode/json"
