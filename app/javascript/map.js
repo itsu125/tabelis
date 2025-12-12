@@ -54,6 +54,7 @@ function initMap() {
         let nowLng = pos.coords.longitude;
         // Google Maps 用の座標オブジェクト
         let nowLatLng = new google.maps.LatLng(nowLat, nowLng);
+        let activeInfoWindow = null;
 
         console.log("現在地取得しました", nowLat, nowLng);
 
@@ -79,12 +80,51 @@ function initMap() {
         shopsData.forEach((shop) => {
           const position = new google.maps.LatLng(shop.latitude, shop.longitude);
 
-          new google.maps.Marker({
+          const marker = new google.maps.Marker({
             position: position,
             map: map,
             title: shop.name,
             icon: {
               url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+            },
+          });
+
+          // マーカークリック時に情報ウィンドウを表示
+          const infoWindow = new google.maps.InfoWindow({
+            headerContent: shop.name,
+            content: `
+              <div style="font-size:13px; line-height:1.4;">
+                <div>${shop.address ?? "住所未登録"}</div>
+                <div style="margin-top:5px;">
+                  <a href="/shops/${shop.id}"
+                     style="color:#2563eb; text-decoration:underline;">
+                     詳細を見る
+                  </a>
+                </div>
+              </div>
+            `,
+          });
+          // マーカークリックイベントを追加
+          marker.addListener("click", () => {
+            // 既存の情報ウィンドウがあれば閉じる
+            if (activeInfoWindow) {
+              activeInfoWindow.close();
+            }
+            // 新しい情報ウィンドウを開く
+            infoWindow.open({
+              anchor: marker,
+              map,
+              shouldFocus: false,
+            });
+            // 現在の情報ウィンドウを更新
+            activeInfoWindow = infoWindow;
+          });
+
+          // 地図クリック時に情報ウィンドウを閉じる
+          map.addListener("click", () => {
+            if (activeInfoWindow) {
+              activeInfoWindow.close();
+              activeInfoWindow = null;
             }
           });
         });
