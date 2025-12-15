@@ -78,7 +78,24 @@ function initMap() {
         });
         // ショップデータに基づいてピンを立てる
         shopsData.forEach((shop) => {
-          const position = new google.maps.LatLng(shop.latitude, shop.longitude);
+          const shopLat = shop.latitude;
+          const shopLng = shop.longitude;
+          // 距離計算
+          const distance = calculateDistance(
+            nowLat,
+            nowLng,
+            shopLat,
+            shopLng
+          );
+
+          console.log(`${shop.name} までの距離: ${distance} km`);
+
+          const distanceText =
+            distance < 1
+              ? `${Math.round(distance * 1000)} m`
+              : `${distance.toFixed(1)} km`;
+          // マーカーの位置情報を作成
+          const position = new google.maps.LatLng(shopLat, shopLng);
 
           const marker = new google.maps.Marker({
             position: position,
@@ -95,6 +112,9 @@ function initMap() {
             content: `
               <div style="font-size:13px; line-height:1.4;">
                 <div>${shop.address ?? "住所未登録"}</div>
+                <div style="margin-top:4px; color:#555;">
+                  現在地から ${distanceText}
+                </div>
                 <div style="margin-top:5px;">
                   <a href="/shops/${shop.id}"
                      style="color:#2563eb; text-decoration:underline;">
@@ -138,6 +158,23 @@ function initMap() {
     console.warn("このブラウザでは位置情報がサポートされていません");
   }
 };
+
+function calculateDistance(lat1, lng1, lat2, lng2) {
+  const R = 6371; // 地球の半径（km）
+  const toRad = (value) => value * Math.PI / 180;
+
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+
+const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) *
+      Math.cos(toRad(lat2)) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c; // 距離を km 単位で返す
+}
 
 // Turbo がロードされたときに initMap を呼び出す
 document.addEventListener("turbo:load", () => {
