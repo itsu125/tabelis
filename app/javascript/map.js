@@ -94,6 +94,16 @@ function initMap() {
             distance < 1
               ? `${Math.round(distance * 1000)} m`
               : `${distance.toFixed(1)} km`;
+
+          // 対応するカードの距離表示要素を取得
+          const distanceElement = document.querySelector(
+            `[data-distance-for="${shop.id}"]`
+          );
+          // 要素が存在すれば距離を表示
+          if (distanceElement) {
+            distanceElement.textContent = `現在地から ${distanceText}`;
+          }
+          
           // マーカーの位置情報を作成
           const position = new google.maps.LatLng(shopLat, shopLng);
 

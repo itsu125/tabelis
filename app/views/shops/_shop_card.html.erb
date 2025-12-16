@@ -58,6 +58,12 @@
           <%= shop.address.presence || "住所未登録" %>
         </div>
 
+        <!-- 距離表示（距離はJSで表示） -->
+        <div
+          class="text-xs text-t-text-mid mt-1"
+          data-distance-for="<%= shop.id %>">
+        </div>
+
         <!-- 横スクロールタグ -->
         <div class="flex space-x-2 overflow-x-auto pb-1">
           <% shop.tags.each do |tag| %>
