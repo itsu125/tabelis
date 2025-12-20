@@ -45,6 +45,21 @@
       </div>
     </div>
 
+    <%# --- ソート --- %>
+    <div class="mb-2">
+      <%= f.label :s, "並び順",
+            class: "block text-sm font-bold text-t-text-mid mb-1" %>
+
+      <%= f.select :s,
+            [
+              ["登録日が新しい順", "created_at desc"],
+              ["登録日が古い順", "created_at asc"],
+              ["わくわく度が高い順", "rating desc"],
+            ],
+            { include_blank: false },
+            class: "w-full p-2 border border-t-border rounded-lg bg-white" %>
+    </div>
+
     <%# --- 検索 / リセット --- %>
     <div class="flex gap-2 mt-3">
       <%= f.submit "検索", class: "flex-1 py-1.5 bg-t-primary text-white rounded-lg font-bold" %>

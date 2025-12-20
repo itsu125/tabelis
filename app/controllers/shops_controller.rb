@@ -8,8 +8,10 @@ class ShopsController < ApplicationController
     @categories = Category.all
     # Ransack 検索オブジェクト作成（current_user.shops を対象にする）
     @q = current_user.shops.ransack(params[:q])
-    # 検索結果を取得し、作成日の降順で並び替え
-    @shops = @q.result.order(created_at: :desc)
+    # ソート指定がない場合は、登録が新しい順に設定
+    @q.sorts = "created_at desc" if @q.sorts.empty?
+    # 検索結果を取得
+    @shops = @q.result
 
     # --- タグ絞り込み（複数 OR 条件） ---
     if params[:tags].present?
