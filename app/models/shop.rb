@@ -39,7 +39,9 @@ class Shop < ApplicationRecord
   private
   # 住所変更時のみ Google Geocoding API を呼び出す
   def should_geocode?
-    address.present? && will_save_change_to_address?
+    Rails.env.development? &&
+      address.present? &&
+      will_save_change_to_address?
   end
 
   def clear_geocode_if_address_blank
