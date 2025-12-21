@@ -1,5 +1,6 @@
 <%= link_to shop_path(shop),
-            class: "block bg-t-light-header border border-t-border rounded-xl shadow hover:shadow-xl transition overflow-hidden" do %>
+            class: "js-distance-target block bg-t-light-header border border-t-border rounded-xl shadow hover:shadow-xl transition overflow-hidden",
+            data: { shop_id: shop.id } do %>
 
   <div class="w-full h-44 sm:h-56 flex flex-col">
 

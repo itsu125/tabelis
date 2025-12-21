@@ -103,6 +103,13 @@ function initMap() {
           if (distanceElement) {
             distanceElement.textContent = `現在地から ${distanceText}`;
           }
+
+          // 対応するカードを取得
+          const card = document.querySelector(`.js-distance-target[data-shop-id="${shop.id}"]`);
+          // カードが存在すればdistanceを保存
+          if (card) {
+            card.dataset.distance = distance;
+          }
           
           // マーカーの位置情報を作成
           const position = new google.maps.LatLng(shopLat, shopLng);
