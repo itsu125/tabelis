@@ -110,7 +110,7 @@ function initMap() {
           if (card) {
             card.dataset.distance = distance;
           }
-          
+
           // マーカーの位置情報を作成
           const position = new google.maps.LatLng(shopLat, shopLng);
 
@@ -203,6 +203,49 @@ document.addEventListener("turbo:load", () => {
   } else {
     console.warn("Google Maps API が読み込まれていません！");
   }
+
+  // 距離順ソートボタンの処理
+  const distanceSortButton = document.getElementById("sort-by-distance");
+  const shopList = document.getElementById("shops-list");
+
+  // ボタンor一覧がない場合は何もしない
+  if (!distanceSortButton || !shopList) {
+    console.log("distanceSortButton または shopList が存在しないため、距離順ソート処理はスキップ");
+    return;
+  }
+
+  // 元の並びを保存
+  const originalOrder = Array.from(shopList.children);
+
+  // 距離順がONかどうか（デフォルトはOFF）
+  let isDistanceSortOn = false;
+
+  distanceSortButton.addEventListener("click", () => {
+    // 表示されているカードを配列化
+    const wrappers = Array.from(shopList.querySelectorAll(".shop-card"));
+    if (!isDistanceSortOn) {
+      // OFF → ON に切り替え
+      wrappers.sort((wa, wb) => {
+        const a = wa.querySelector(".js-distance-target");
+        const b = wb.querySelector(".js-distance-target");
+        const distA = parseFloat(a?.dataset.distance) || Infinity;
+        const distB = parseFloat(b?.dataset.distance) || Infinity;
+        return distA - distB;
+      });
+
+      // 並び替え結果をDOMに反映
+      wrappers.forEach((w) => shopList.appendChild(w));
+      // ボタン表示を変更
+      distanceSortButton.textContent = "元に戻す";
+      isDistanceSortOn = true;
+    } else {
+      // ON → OFF に切り替え
+      originalOrder.forEach((el) => shopList.appendChild(el));
+      // ボタン表示を戻す
+      distanceSortButton.textContent = "距離の近い順に並び替え";
+      isDistanceSortOn = false;
+    }
+  });
 
   // 切り替えボタンとmapブロックの要素を取得
   const toggleButton = document.getElementById("toggle-map-button");

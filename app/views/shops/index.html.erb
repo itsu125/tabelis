@@ -61,6 +61,17 @@
     data-shops="<%= @shops_with_location.to_json(only: [:id, :name, :address, :latitude, :longitude]) %>">
   </div>
 
+  <!-- 距離順並び替え（JS） -->
+  <div class="mb-2">
+    <button
+      type="button"
+      id="sort-by-distance"
+      class="w-full p-2 border border-t-border rounded-lg bg-white text-sm font-bold
+             hover:bg-gray-100 transition">
+      距離の近い順に並び替え
+    </button>
+  </div>
+
   <!-- 店舗が0件の場合 -->
   <% if @shops.empty? %>
     <div class="text-center text-t-text-mid bg-t-light-header p-6 rounded-xl border border-t-border shadow">
