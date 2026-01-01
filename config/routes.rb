@@ -16,4 +16,5 @@ Rails.application.routes.draw do
   resources :shops
   resource :mypage, only: [:show]
   resources :users, only: [:edit, :update]
+  resources :favorites, only: [:create, :destroy]
 end
