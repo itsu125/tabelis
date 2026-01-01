@@ -1,0 +1,11 @@
+<%= turbo_stream.replace "favorite_#{@favorite.shop_id}" do %>
+  <%= turbo_frame_tag "favorite_#{@favorite.shop_id}" do %>
+    <%= button_to favorite_path(@favorite),
+                  method: :delete,
+                  form: { class: "inline" },
+                  class: "text-xl text-red-500",
+                  title: "お気に入り解除" do %>
+      ♥
+    <% end %>
+  <% end %>
+<% end %>

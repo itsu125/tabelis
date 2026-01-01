@@ -1,13 +1,25 @@
 <div class="relative">
   <!-- お気に入り（リンク外） -->
   <div class="absolute top-2 right-2 z-20">
-    <%= button_to favorites_path,
-                  method: :post,
-                  params: { favorite: { shop_id: shop.id } },
-                  form: { class: "inline" },
-                  class: "text-xl text-gray-400 hover:text-red-400",
-                  title: "お気に入り" do %>
-      ♡
+    <%= turbo_frame_tag "favorite_#{shop.id}" do %>
+      <% if (favorite = favorite_for(shop)) %>
+        <%= button_to favorite_path(favorite),
+                      method: :delete,
+                      form: { class: "inline" },
+                      class: "text-xl text-red-500",
+                      title: "お気に入り解除" do %>
+          ♥
+        <% end %>
+      <% else %>
+        <%= button_to favorites_path,
+                      method: :post,
+                      params: { favorite: { shop_id: shop.id } },
+                      form: { class: "inline" },
+                      class: "text-xl text-gray-400 hover:text-red-400",
+                      title: "お気に入り" do %>
+          ♡
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 

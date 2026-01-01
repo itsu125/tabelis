@@ -1,0 +1,12 @@
+<%= turbo_stream.replace "favorite_#{@favorite.shop_id}" do %>
+  <%= turbo_frame_tag "favorite_#{@favorite.shop_id}" do %>
+    <%= button_to favorites_path,
+                  method: :post,
+                  params: { favorite: { shop_id: @favorite.shop_id } },
+                  form: { class: "inline" },
+                  class: "text-xl text-gray-400 hover:text-red-400",
+                  title: "お気に入り" do %>
+      ♡
+    <% end %>
+  <% end %>
+<% end %>
