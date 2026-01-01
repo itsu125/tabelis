@@ -26,19 +26,25 @@
 
       <!-- テキストエリア（右） -->
       <div class="w-[55%] flex flex-col justify-between py-2 pr-2">
+        <!-- 上段：カテゴリー + お気に入り -->
+        <div class="flex justify-between items-start">
+          <!-- カテゴリー -->
+          <%
+            if shop.category.present?
+              bg_class = "bg-t-secondary text-t-dark border border-t-border"
+            else
+              bg_class = "bg-gray-200 text-gray-600 border border-gray-300"
+            end
+          %>
 
-      <!-- カテゴリー -->
-      <%
-        if shop.category.present?
-          bg_class = "bg-t-secondary text-t-dark border border-t-border"
-        else
-          bg_class = "bg-gray-200 text-gray-600 border border-gray-300"
-        end
-      %>
-
-      <span class="inline-flex items-center w-fit max-w-[90%] px-2 py-1 rounded-full text-xs whitespace-nowrap <%= bg_class %>">
-        <%= shop.category.present? ? shop.category.name : "未分類" %>
-      </span>
+          <span class="inline-flex items-center w-fit max-w-[90%] px-2 py-1 rounded-full text-xs whitespace-nowrap <%= bg_class %>">
+            <%= shop.category.present? ? shop.category.name : "未分類" %>
+          </span>
+          <!-- お気に入り -->
+          <span class="text-xl text-gray-400" cursor-pointer>
+            ♡
+          </span>
+        </div>
 
         <!-- わくわく度（★5段階） -->
         <div class="mt-1 text-xs font-semibold text-t-text-mid leading-none">
