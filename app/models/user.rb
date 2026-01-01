@@ -4,6 +4,8 @@ class User < ApplicationRecord
 
   # アソシエーション
   has_many :shops, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_shops, through: :favorites, source: :shop
   has_one_attached :icon
 
   # バリデーション

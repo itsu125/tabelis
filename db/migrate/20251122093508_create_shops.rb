@@ -7,7 +7,7 @@ class CreateShops < ActiveRecord::Migration[7.1]
       t.string :address                      # 任意：住所
       t.text   :memo                         # 任意：メモ（「友達と行く」など）
 
-      # 行きたい / 行った の状態（enumで管理）
+      # 行きたい / 行った の状態（enumで管理、後々中間テーブルへ移行の可能性）
       # want: 0, went: 1
       t.integer :status, null: false, default: 0
 

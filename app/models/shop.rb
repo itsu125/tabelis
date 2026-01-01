@@ -13,6 +13,8 @@ class Shop < ApplicationRecord
   has_one_attached :image
   has_many :shop_tags, dependent: :destroy
   has_many :tags, through: :shop_tags
+  has_many :favorites, dependent: :destroy
+  has_many :favorites_users, through: :favorites, source: :user
 
   # 行きたい / 行った
   enum status: { want: 0, went: 1 }
