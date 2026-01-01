@@ -1,34 +1,45 @@
-<%= link_to shop_path(shop),
-            class: "js-distance-target block bg-t-light-header border border-t-border rounded-xl shadow hover:shadow-xl transition overflow-hidden",
-            data: { shop_id: shop.id } do %>
+<div class="relative">
+  <!-- お気に入り（リンク外） -->
+  <div class="absolute top-2 right-2 z-20">
+    <%= button_to favorites_path,
+                  method: :post,
+                  params: { favorite: { shop_id: shop.id } },
+                  form: { class: "inline" },
+                  class: "text-xl text-gray-400 hover:text-red-400",
+                  title: "お気に入り" do %>
+      ♡
+    <% end %>
+  </div>
 
-  <div class="w-full h-44 sm:h-56 flex flex-col">
+  <%= link_to shop_path(shop),
+              class: "js-distance-target block bg-t-light-header border border-t-border rounded-xl shadow hover:shadow-xl transition overflow-hidden",
+              data: { shop_id: shop.id } do %>
 
-    <!-- 店名エリア（カード上部） -->
-    <div class="h-[15%] bg-[#fff3d4] flex items-center justify-center px-2">
-      <h3 class="text-base font-bold text-t-dark text-center truncate">
-        <%= shop.name %>
-      </h3>
-    </div>
+    <div class="w-full h-44 sm:h-56 flex flex-col">
 
-    <!-- 左：正方形画像 / 右：情報(カード下部) -->
-    <div class="h-[85%] flex">
-    <!-- 画像エリア（左） -->
-      <div class="flex-shrink-0 w-[45%] p-2">
-        <div class="w-full aspect-square bg-white rounded-lg overflow-hidden border border-t-border">
-          <% if shop.image.attached? %>
-            <%= image_tag shop.image, class: "w-full h-full object-cover" %>
-          <% else %>
-            <%= image_tag "no_image.png", class: "w-full h-full object-cover" %>
-          <% end %>
-        </div>
+      <!-- 店名エリア（カード上部） -->
+      <div class="h-[15%] bg-[#fff3d4] flex items-center justify-center px-2">
+        <h3 class="text-base font-bold text-t-dark text-center truncate">
+          <%= shop.name %>
+        </h3>
       </div>
 
-      <!-- テキストエリア（右） -->
-      <div class="w-[55%] flex flex-col justify-between py-2 pr-2">
-        <!-- 上段：カテゴリー + お気に入り -->
-        <div class="flex justify-between items-start">
-          <!-- カテゴリー -->
+      <!-- 左：正方形画像 / 右：情報(カード下部) -->
+      <div class="h-[85%] flex">
+      <!-- 画像エリア（左） -->
+        <div class="flex-shrink-0 w-[45%] p-2">
+          <div class="w-full aspect-square bg-white rounded-lg overflow-hidden border border-t-border">
+            <% if shop.image.attached? %>
+              <%= image_tag shop.image, class: "w-full h-full object-cover" %>
+            <% else %>
+              <%= image_tag "no_image.png", class: "w-full h-full object-cover" %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- テキストエリア（右） -->
+        <div class="w-[55%] flex flex-col justify-between py-2 pr-2">
+        <!-- カテゴリー -->
           <%
             if shop.category.present?
               bg_class = "bg-t-secondary text-t-dark border border-t-border"
@@ -40,52 +51,48 @@
           <span class="inline-flex items-center w-fit max-w-[90%] px-2 py-1 rounded-full text-xs whitespace-nowrap <%= bg_class %>">
             <%= shop.category.present? ? shop.category.name : "未分類" %>
           </span>
-          <!-- お気に入り -->
-          <span class="text-xl text-gray-400" cursor-pointer>
-            ♡
-          </span>
-        </div>
 
-        <!-- わくわく度（★5段階） -->
-        <div class="mt-1 text-xs font-semibold text-t-text-mid leading-none">
-          わくわく度
-        </div>
-        <div class="text-yellow-400 text-base font-bold flex">
-          <% 5.times do |i| %>
-            <% if shop.rating.to_i >= i + 1 %>
-              <span class="text-t-primary">★</span>
-            <% else %>
-              <span class="text-gray-300">★</span>
+          <!-- わくわく度（★5段階） -->
+          <div class="mt-1 text-xs font-semibold text-t-text-mid leading-none">
+            わくわく度
+          </div>
+          <div class="text-yellow-400 text-base font-bold flex">
+            <% 5.times do |i| %>
+              <% if shop.rating.to_i >= i + 1 %>
+                <span class="text-t-primary">★</span>
+              <% else %>
+                <span class="text-gray-300">★</span>
+              <% end %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
 
-        <!-- 住所（調整予定） -->
-        <div class="text-xs text-t-text-mid opacity-80 leading-tight line-clamp-2">
-          <%= shop.address.presence || "住所未登録" %>
-        </div>
+          <!-- 住所（調整予定） -->
+          <div class="text-xs text-t-text-mid opacity-80 leading-tight line-clamp-2">
+            <%= shop.address.presence || "住所未登録" %>
+          </div>
 
-        <!-- 距離表示（距離はJSで表示） -->
-        <div
-          class="text-xs text-t-text-mid mt-1"
-          data-distance-for="<%= shop.id %>">
-        </div>
+          <!-- 距離表示（距離はJSで表示） -->
+          <div
+            class="text-xs text-t-text-mid mt-1"
+            data-distance-for="<%= shop.id %>">
+          </div>
 
-        <!-- 横スクロールタグ -->
-        <div class="flex space-x-2 overflow-x-auto pb-1">
-          <% shop.tags.each do |tag| %>
-            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap
-                         <%= tag.color_class %>">
-              <%= tag.name %>
-            </span>
-          <% end %>
-          <% if shop.tags.empty? %>
-            <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs bg-gray-200 text-gray-600 border border-gray-300">
-              タグ未選択
-            </span>
-          <% end %>
+          <!-- 横スクロールタグ -->
+          <div class="flex space-x-2 overflow-x-auto pb-1">
+            <% shop.tags.each do |tag| %>
+              <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs border border-t-border whitespace-nowrap
+                           <%= tag.color_class %>">
+                <%= tag.name %>
+              </span>
+            <% end %>
+            <% if shop.tags.empty? %>
+              <span class="flex-shrink-0 px-2 py-1 rounded-full text-xs bg-gray-200 text-gray-600 border border-gray-300">
+                タグ未選択
+              </span>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
