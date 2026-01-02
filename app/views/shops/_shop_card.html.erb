@@ -1,41 +1,41 @@
-<div class="relative">
-  <!-- お気に入り（リンク外） -->
-  <div class="absolute top-2 right-2 z-20">
-    <%= turbo_frame_tag "favorite_#{shop.id}" do %>
-      <% if (favorite = favorite_for(shop)) %>
-        <%= button_to favorite_path(favorite),
-                      method: :delete,
-                      form: { class: "inline" },
-                      class: "text-xl text-red-500",
-                      title: "お気に入り解除" do %>
-          ♥
+<div class="js-distance-target block bg-t-light-header border border-t-border 
+            rounded-xl shadow hover:shadow-xl transition overflow-hidden"
+     data-shop-id="<%= shop.id %>">
+
+  <div class="w-full h-44 sm:h-56 flex flex-col">
+
+    <!-- 店名エリア（カード上部 リンク外 relative） -->
+    <div class="h-[15%] bg-[#fff3d4] flex items-center justify-center px-2 relative">
+      <h3 class="text-base font-bold text-t-dark text-center truncate">
+        <%= shop.name %>
+      </h3>
+      <!-- お気に入り（リンク外 absolute） -->
+      <div class="absolute right-2 top-1/2 -translate-y-1/2 z-20">
+        <%= turbo_frame_tag "favorite_#{shop.id}" do %>
+          <% if (favorite = favorite_for(shop)) %>
+            <%= button_to favorite_path(favorite),
+                          method: :delete,
+                          form: { class: "inline" },
+                          class: "text-xl text-red-500",
+                          title: "お気に入り解除" do %>
+              ♥
+            <% end %>
+          <% else %>
+            <%= button_to favorites_path,
+                          method: :post,
+                          params: { favorite: { shop_id: shop.id } },
+                          form: { class: "inline" },
+                          class: "text-xl text-gray-400 hover:text-red-400",
+                          title: "お気に入り" do %>
+              ♡
+            <% end %>
+          <% end %>
         <% end %>
-      <% else %>
-        <%= button_to favorites_path,
-                      method: :post,
-                      params: { favorite: { shop_id: shop.id } },
-                      form: { class: "inline" },
-                      class: "text-xl text-gray-400 hover:text-red-400",
-                      title: "お気に入り" do %>
-          ♡
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
-
-  <%= link_to shop_path(shop),
-              class: "js-distance-target block bg-t-light-header border border-t-border rounded-xl shadow hover:shadow-xl transition overflow-hidden",
-              data: { shop_id: shop.id } do %>
-
-    <div class="w-full h-44 sm:h-56 flex flex-col">
-
-      <!-- 店名エリア（カード上部） -->
-      <div class="h-[15%] bg-[#fff3d4] flex items-center justify-center px-2">
-        <h3 class="text-base font-bold text-t-dark text-center truncate">
-          <%= shop.name %>
-        </h3>
       </div>
+    </div>
 
+    <!-- カード下部のみリンク -->
+    <%= link_to shop_path(shop) do %>
       <!-- 左：正方形画像 / 右：情報(カード下部) -->
       <div class="h-[85%] flex">
       <!-- 画像エリア（左） -->
@@ -50,7 +50,7 @@
         </div>
 
         <!-- テキストエリア（右） -->
-        <div class="w-[55%] flex flex-col justify-between py-2 pr-2">
+        <div class="w-[55%] relative flex flex-col justify-between py-2 pr-2">
         <!-- カテゴリー -->
           <%
             if shop.category.present?
@@ -105,6 +105,6 @@
           </div>
         </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
