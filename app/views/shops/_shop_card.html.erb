@@ -2,10 +2,10 @@
             rounded-xl shadow hover:shadow-xl transition overflow-hidden"
      data-shop-id="<%= shop.id %>">
 
-  <div class="w-full h-44 sm:h-56 flex flex-col">
+  <div class="w-full flex flex-col">
 
     <!-- 店名エリア（カード上部 リンク外 relative） -->
-    <div class="h-[15%] bg-[#fff3d4] flex items-center justify-center px-2 relative">
+    <div class="bg-[#fff3d4] flex items-center justify-center px-2 relative">
       <h3 class="text-base font-bold text-t-dark text-center truncate">
         <%= shop.name %>
       </h3>
@@ -37,7 +37,7 @@
     <!-- カード下部のみリンク -->
     <%= link_to shop_path(shop) do %>
       <!-- 左：正方形画像 / 右：情報(カード下部) -->
-      <div class="h-[85%] flex">
+      <div class="flex">
       <!-- 画像エリア（左） -->
         <div class="flex-shrink-0 w-[45%] p-2">
           <div class="w-full aspect-square bg-white rounded-lg overflow-hidden border border-t-border">
