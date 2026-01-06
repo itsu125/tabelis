@@ -28,7 +28,7 @@
         <% Tag.all.each do |tag| %>
           <% selected = (params[:tags]&.include?(tag.id.to_s)) %>
 
-          <label class="cursor-pointer">
+          <label class="tag-filter cursor-pointer">
             <input type="checkbox"
                    name="tags[]"
                    value="<%= tag.id %>"

@@ -1,5 +1,5 @@
 document.addEventListener("turbo:load", () => {
-  const tagWrappers = document.querySelectorAll("#search-panel label");
+  const tagWrappers = document.querySelectorAll(".tag-filter");
 
   tagWrappers.forEach(wrapper => {
     const checkbox = wrapper.querySelector("input[type='checkbox']");
