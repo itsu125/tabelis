@@ -11,7 +11,12 @@ class ShopsController < ApplicationController
     # ソート指定がない場合は、登録が新しい順に設定
     @q.sorts = "created_at desc" if @q.sorts.empty?
     # 検索結果を取得
-    @shops = @q.result
+    @shops = @q.result(distinct: true)
+
+    # --- お気に入り絞り込み ---
+    if params[:q]&.dig(:favorited) == "1"
+      @shops = @shops.favorited_by(current_user)
+    end
 
     # --- タグ絞り込み（複数 OR 条件） ---
     if params[:tags].present?

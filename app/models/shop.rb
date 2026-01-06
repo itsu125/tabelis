@@ -27,6 +27,10 @@ class Shop < ApplicationRecord
     less_than_or_equal_to: 5
   }
 
+  scope :favorited_by, ->(user) {
+    joins(:favorites).where(favorites: { user_id: user.id })
+  }
+
   def self.ransackable_attributes(_auth_object = nil)
     %w[
       name memo address url category_id status rating

@@ -22,7 +22,7 @@
 
     <%# --- タグ（ pill 複数選択） --- %>
     <div class="mb-2">
-      <p class="block text-sm font-bold text-t-text-mid mb-1">タグ（複数選択）</p>
+      <p class="block text-sm font-bold text-t-text-mid mb-1">タグ（複数選択可）</p>
 
       <div class="flex flex-wrap gap-2">
         <% Tag.all.each do |tag| %>
@@ -43,6 +43,21 @@
           </label>
         <% end %>
       </div>
+    </div>
+
+    <%# --- お気に入り --- %>
+    <div class="mb-2">
+      <p class="block text-sm font-bold text-t-text-mid mb-1">お気に入り</p>
+
+      <label class="inline-flex items-center gap-2 cursor-pointer">
+        <%= check_box_tag "q[favorited]", "1",
+              params.dig(:q, :favorited) == "1",
+              class: "w-4 h-4 accent-t-primary" %>
+
+        <span class="text-sm text-t-text-mid">
+          お気に入りのみ表示
+        </span>
+      </label>
     </div>
 
     <%# --- ソート --- %>
