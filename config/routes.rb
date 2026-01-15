@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :shops
+  resources :tags, only: [:new, :create]
   resource :mypage, only: [:show]
   resources :users, only: [:edit, :update]
   resources :favorites, only: [:create, :destroy]
