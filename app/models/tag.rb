@@ -5,4 +5,8 @@ class Tag < ApplicationRecord
 
   validates :name, presence: true,
                    uniqueness: { scope: :user_id }
+
+  def self.available_for(user)
+    where(user_id: nil).or(where(user_id: user.id))
+  end
 end

@@ -29,6 +29,8 @@ class ShopsController < ApplicationController
 
   def new
     @shop = Shop.new
+    @categories = Category.all
+    @available_tags = Tag.available_for(current_user)
   end
 
   def create
@@ -44,6 +46,8 @@ class ShopsController < ApplicationController
   end
 
   def edit
+    @categories = Category.all
+    @available_tags = Tag.available_for(current_user)
   end
 
   def update
