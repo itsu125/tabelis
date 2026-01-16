@@ -15,6 +15,17 @@
       </button>
     <% end %>
   </div>
+
+  <!-- 新しいタグ登録ボタン -->
+  <div class="mt-2">
+    <%= link_to "＋ 新しいタグを作成",
+          new_tag_path,
+          data: { turbo_frame: "new_tag_form" },
+          class: "text-sm text-t-primary underline cursor-pointer" %>
+  </div>
+
+  <!-- Turbo Frame：モーダル領域 -->
+  <turbo-frame id="new_tag_form"></turbo-frame>
   <!-- hidden inputs（複数選択用） -->
   <%= hidden_field_tag "shop[tag_ids][]", nil %>  <%# 空を送ることで未選択も許容 %>
   <% shop.tags.each do |tag| %>
