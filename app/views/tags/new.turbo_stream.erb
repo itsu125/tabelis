@@ -1,0 +1,5 @@
+<%= turbo_stream.replace "new_tag_form" do %>
+  <turbo-frame id="new_tag_form">
+    <%= render "form", tag: @tag %>
+  </turbo-frame>
+<% end %>

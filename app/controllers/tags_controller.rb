@@ -12,14 +12,19 @@ class TagsController < ApplicationController
       respond_to do |format|
         format.turbo_stream
         format.html do
-          redirect_back fallback_location: new_shops_path,
+          redirect_back fallback_location: new_shop_path,
                         notice: "タグを追加しました"
         end
       end
     else
       respond_to do |format|
-        format.turbo_stream { render :new, status: :unprocessable_entity }
-        format.html         { render :new, status: :unprocessable_entity }
+        format.turbo_stream do
+          render :new, status: :unprocessable_entity
+        end
+
+        format.html do
+          render :new, status: :unprocessable_entity
+        end
       end
     end
   end
