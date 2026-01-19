@@ -1,0 +1,15 @@
+<%= turbo_stream.append "tag-select" do %>
+  <button
+    type="button"
+    data-tag-id="<%= @tag.id %>"
+    data-tag-color-class="<%= @tag.color_class %>"
+    class="tag-pill px-3 py-1 rounded-full text-xs border
+          <%= @tag.color_class.presence || 'bg-gray-200 text-gray-700 border-gray-300' %>">
+    <%= @tag.name %>
+  </button>
+<% end %>
+
+<!-- フレーム内を空にする（フォームを閉じる） -->
+<%= turbo_stream.replace "new_tag_form" do %>
+  <turbo-frame id="new_tag_form"></turbo-frame>
+<% end %>
