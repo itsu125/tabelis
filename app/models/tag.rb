@@ -21,4 +21,10 @@ class Tag < ApplicationRecord
       ["サーモン系", "bg-tag-takeout"],
     ]
   end
+
+  COLOR_CLASS_LIST = color_options.map { |(_, class_name)| class_name }.freeze
+
+  validates :color_class,
+            presence: { message: "を選択してください" },
+            inclusion: { in: COLOR_CLASS_LIST, allow_nil: true }
 end

@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       shop: ショップ
+      tag: タグ
     attributes:
       shop:
         name: 店名
@@ -11,6 +12,9 @@ ja:
         status: ステータス
         image: 画像
         rating: わくわく度
+      tag:
+        name: タグ名
+        color_class: カラー
   errors:
     messages:
       blank: "を入力してください"
